@@ -4,10 +4,9 @@ import { useSprings, animated, interpolate } from "react-spring";
 import { useGesture } from "react-use-gesture";
 import "../../";
 import { questionsAll } from "../../data/QuestionsData";
+import loveCardImage from "../../assets/images/love-card.jpg";
 
-const cards = [
-  "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg",
-];
+const cards = [loveCardImage];
 
 const to = (i) => ({
   x: 0,
@@ -95,6 +94,7 @@ function Deck() {
       <animated.div
         {...bind(i)}
         style={{
+          display: "flex",
           transform: interpolate(
             [rot, scale, flip],
             (rot, scale, flip) => `${trans(rot, scale)} rotateY(${flip}deg)`
@@ -109,12 +109,17 @@ function Deck() {
             justifyContent: "center",
             height: "100%",
             width: "100%",
-            borderRadius: "10px",
+            borderRadius: "15px",
             backgroundImage: flipped[i] ? `url(${cards[0]})` : "",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
+            boxShadow: `6px 6px 8px rgba(135, 28, 76, 0.5), 
+    -6px -6px 8px rgba(135, 28, 76, 0.5)
+  `,
           }}
         >
-          {!flipped[i] && questionsAll[i]}
+          {!flipped[i] && <div className="card-back">{questionsAll[i]}</div>}
         </div>
       </animated.div>
     </animated.div>
