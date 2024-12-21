@@ -118,7 +118,7 @@ export const questionsReflectGrow = [
 ];
 
 export const questionsAll = [
-  ...questionsKnowMeBetter,
+  //...questionsKnowMeBetter.map(question => ({question, type: 'KNOM_ME_'}),
   ...questionsRomanticSparks,
   ...questionsVisionValues,
   ...questionsTeamUs,
