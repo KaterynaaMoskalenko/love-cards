@@ -31,6 +31,24 @@ function Deck() {
     from: from(i),
   }));
 
+  const handleClick = (index) => {
+    set((i) => {
+      if (i !== index) return;
+      const flip = flipped[index] ? 0 : 180; // Rotate by 180 degrees on flip
+      console.log("START FLIP", i);
+      setTimeout(() => {
+        console.log("OLD FLIPPED", i, flipped[i]);
+        setFlipped((prev) => {
+          const newFlipped = [...prev];
+          newFlipped[index] = !newFlipped[index];
+          console.log("NEW FLIPPED", i, newFlipped[i]);
+          return newFlipped;
+        });
+      }, 250);
+      return { flip, config: { duration: 500 } }; // Slower animation for flip
+    });
+  };
+
   const bind = useGesture(
     ({ args: [index], down, delta: [xDelta], direction: [xDir], velocity }) => {
       const trigger = velocity > 0.5;
@@ -39,40 +57,20 @@ function Deck() {
         gone.add(index);
         //setFlipped(false);
       }
-      console.log("VELOCITY", velocity);
-      if (!down && velocity == 0) {
-        set((i) => {
-          if (i !== index) return;
-          const flip = flipped[index] ? 0 : 180; // Rotate by 180 degrees on flip
-          setTimeout(() => {
-            setFlipped((prev) => {
-              const newFlipped = [...prev];
-              newFlipped[index] = !newFlipped[index];
-              return newFlipped;
-            });
-          }, 250);
-          return { flip, config: { duration: 500 } }; // Slower animation for flip
-        });
-      } else {
-        set((i) => {
-          if (index !== i) return;
-          const isGone = gone.has(index);
-          const x = isGone
-            ? (150 + window.innerWidth) * dir
-            : down
-            ? xDelta
-            : 0;
-          const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0);
-          const scale = down ? 1.1 : 1;
-          return {
-            x,
-            rot,
-            scale,
-            delay: undefined,
-            config: { friction: 50, tension: down ? 800 : isGone ? 200 : 500 },
-          };
-        });
-      }
+      set((i) => {
+        if (index !== i) return;
+        const isGone = gone.has(index);
+        const x = isGone ? (150 + window.innerWidth) * dir : down ? xDelta : 0;
+        const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0);
+        const scale = down ? 1.1 : 1;
+        return {
+          x,
+          rot,
+          scale,
+          delay: undefined,
+          config: { friction: 50, tension: down ? 800 : isGone ? 200 : 500 },
+        };
+      });
       if (!down && gone.size === 20)
         setTimeout(() => {
           gone.clear() || set((i) => to(i));
@@ -92,6 +90,7 @@ function Deck() {
       }}
     >
       <animated.div
+        onClick={() => handleClick(i)}
         {...bind(i)}
         style={{
           display: "flex",
@@ -99,7 +98,6 @@ function Deck() {
             [rot, scale, flip],
             (rot, scale, flip) => `${trans(rot, scale)} rotateY(${flip}deg)`
           ),
-          cursor: "pointer",
         }}
       >
         <div
@@ -114,6 +112,7 @@ function Deck() {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
+            cursor: "pointer",
             boxShadow: `6px 6px 8px rgba(135, 28, 76, 0.5), 
     -6px -6px 8px rgba(135, 28, 76, 0.5)
   `,
