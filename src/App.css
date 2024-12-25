@@ -4,7 +4,8 @@
   overflow: hidden;
   width: 100%;
   height: 100%;
- }
+  justify-content: center;
+}
 
 .menu-button-container {
   position: relative; /* Position the button in the top-left */
@@ -31,11 +32,7 @@
   transition: background-color 0.3s ease; /* Hover effect */
 }
 
-.poppins-bold {
-  font-family: "Poppins", serif;
-  font-weight: 700;
-  font-style: normal;
-}
+
 
 .menu-icon:hover .line {
   background-color: #1a060d; /* Darker shade on hover */

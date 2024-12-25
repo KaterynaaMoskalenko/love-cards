@@ -51,8 +51,10 @@ function Deck() {
 
   const bind = useGesture(
     ({ args: [index], down, delta: [xDelta], direction: [xDir], velocity }) => {
-      const trigger = velocity > 0.5;
-      const dir = xDir < 0 ? -1 : 1;
+      //   Android FIX: Increase velocity and xDelta thresholds for swiping:
+      const trigger = velocity > 0.7 || Math.abs(xDelta) > 50;
+      console.log("xDelta", xDelta, "velocity", velocity, "xDir", xDir);
+      const dir = xDir || (xDelta < 0 ? -1 : 1);
       if (!down && trigger) {
         gone.add(index);
         //setFlipped(false);
@@ -63,6 +65,7 @@ function Deck() {
         const x = isGone ? (150 + window.innerWidth) * dir : down ? xDelta : 0;
         const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0);
         const scale = down ? 1.1 : 1;
+        console.log("isGone", isGone, "x", x, "rot", rot, "scale", scale);
         return {
           x,
           rot,
