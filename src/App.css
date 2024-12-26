@@ -32,8 +32,6 @@
   transition: background-color 0.3s ease; /* Hover effect */
 }
 
-
-
 .menu-icon:hover .line {
   background-color: #1a060d; /* Darker shade on hover */
 }
@@ -41,7 +39,8 @@
 .App > div > div {
   position: absolute;
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
+  /* top: 50%; */
   will-change: transform;
   display: flex;
   align-items: center;
