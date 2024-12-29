@@ -1,9 +1,9 @@
 import { render } from "react-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSprings, animated, interpolate } from "react-spring";
 import { useGesture } from "react-use-gesture";
-import "../../";
-import { questionsAll } from "../../data/QuestionsData";
+
+import { questions } from "../../data/QuestionsData";
 import loveCardImage from "../../assets/images/love-card.jpg";
 
 const cards = [loveCardImage];
@@ -23,8 +23,37 @@ const trans = (r, s) =>
   }deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck() {
+  const [language, setLanguage] = useState("EN");
+  const [currentQuestions, setCurrentQuestions] = useState([]);
   const [gone] = useState(() => new Set()); // Track cards that are flicked out
   const [flipped, setFlipped] = useState(Array(20).fill(true)); // Track flip state for each card
+  const shuffleArray = (array) => {
+    return array.sort(() => Math.random() - 0.5);
+  };
+  // useEffect(() => {
+  //   if (questions[language]) {
+  //     const allQuestions = Object.values(questions[language]).flat(); // Flatten all categories for the selected language
+  //     const shuffledQuestions = shuffleArray(allQuestions); // Shuffle questions randomly
+  //     setCurrentQuestions(shuffledQuestions);
+  //     setFlipped(Array(shuffledQuestions.length).fill(true));
+  //   }
+  // }, [language]);
+  useEffect(() => {
+    if (questions[language]) {
+      const selectedQuestions = sampleQuestions(questions[language]);
+      setCurrentQuestions(selectedQuestions);
+      setFlipped(Array(20).fill(true)); // Fixed size for flipping
+    }
+  }, []);
+
+  // Utility: Select 20 random questions from all categories
+  const sampleQuestions = (questions) => {
+    const allQuestions = Object.values(questions).flat();
+    const shuffledQuestions = shuffleArray(allQuestions);
+    return shuffledQuestions.slice(0, 20);
+  };
+
+  // // Load questions based on selected language
 
   const [props, set] = useSprings(20, (i) => ({
     ...to(i),
@@ -84,6 +113,7 @@ function Deck() {
 
   return props.map(({ x, y, rot, scale, flip }, i) => (
     <animated.div
+      className="deck-of-cards"
       key={i}
       style={{
         transform: interpolate(
@@ -93,6 +123,7 @@ function Deck() {
       }}
     >
       <animated.div
+        className="card-flip"
         onClick={() => handleClick(i)}
         {...bind(i)}
         style={{
@@ -104,6 +135,7 @@ function Deck() {
         }}
       >
         <div
+          className="card-animation"
           style={{
             display: "flex",
             alignItems: "center",
@@ -121,7 +153,9 @@ function Deck() {
   `,
           }}
         >
-          {!flipped[i] && <div className="card-back">{questionsAll[i]}</div>}
+          {!flipped[i] && (
+            <div className="card-back">{currentQuestions[i]}</div>
+          )}
         </div>
       </animated.div>
     </animated.div>

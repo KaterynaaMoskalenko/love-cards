@@ -8,9 +8,13 @@
 }
 
 .menu-button-container {
-  position: relative; /* Position the button in the top-left */
+  position: absolute; /* Position the button in the top-left */
   top: 20px;
-  left: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  right: 20px;
 }
 
 .menu-icon {
@@ -22,32 +26,29 @@
   height: 20px; /* Set the height of the button */
   cursor: pointer; /* Pointer cursor on hover */
   text-decoration: none; /* Remove underline for Link */
+  align-items: flex-end;
 }
-
 .line {
-  width: 100%; /* Full width of the icon container */
-  height: 4px; /* Thickness of the line */
-  background-color: #ffffffca; /* Line color */
-  border-radius: 2px; /* Slight rounding for smoother appearance */
-  transition: background-color 0.3s ease; /* Hover effect */
+  width: 100%;
+  height: 4px;
+  background-color: #ffffffca;
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
 }
 
-.menu-icon:hover .line {
-  background-color: #1a060d; /* Darker shade on hover */
-}
-
-.App > div > div {
+.card-flip {
   position: absolute;
   width: 100vw;
-  height: 80vh;
+  height: 90vh;
   /* top: 50%; */
   will-change: transform;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 /* child of child of App div */
-.App > div > div > div {
+.card-animation {
   background-color: white;
   background-size: auto 85%;
   background-repeat: no-repeat;

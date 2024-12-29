@@ -1,0 +1,179 @@
+.popup-overlay {
+  background-color: rgb(234, 71, 131, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+}
+
+.popup-window {
+  background-color: rgba(234, 71, 131, 0.8);
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", serif;
+  text-align: center;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: moveUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+.popup-content {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", serif;
+}
+.popup-overlay.close .popup-window {
+  animation: moveDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+.popup-overlay.close .popup-content {
+  animation: slideDownLarge 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.close-button {
+  background: none;
+  width: 40px;
+  height: 40px;
+  color: antiquewhite;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* .popup-window h1,
+h2 {
+  padding: 10px;
+  color: white;
+} */
+.popup-window h1 {
+  padding: 10px;
+  color: white;
+}
+
+.popup-window ul {
+  list-style: none;
+
+  height: 60px;
+  width: 100%;
+}
+
+.popup-window li {
+  border-bottom: 1px;
+
+  margin: 10px;
+  justify-content: flex-start;
+  display: flex;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.popup-window a {
+  text-decoration: none;
+  color: white;
+}
+
+.menu-icon:hover .line {
+  background-color: #1a060d;
+}
+
+/* Styling for the 'Language' popover button */
+.language-popover-button {
+  font-family: "Poppins", serif;
+  border: none;
+  border-bottom: #f8eeee;
+  width: 100%;
+  background-color: rgba(234, 71, 131, 0.8);
+  color: #f8eeee; /* Text color */
+  display: flex;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  font-weight: 500;
+
+  transition: background-color 0.3s ease;
+}
+
+/* .language-popover-button:hover {
+  /* background-color: #f9f9f9; Subtle hover effect */
+/* } */
+*/
+
+/* Styling for the dropdown panel */
+.language-popover-panel {
+  width: 100%;
+  background-color: rgba(234, 71, 131, 0.8); /* Same as popup */
+  border-radius: 6px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+.language-option {
+  padding: 10px 16px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.language-option:hover {
+  background-color: rgba(249, 193, 221, 0.8); /* Highlight on hover */
+}
+.menu-list {
+  transition: margin-top 0.3s ease;
+}
+
+/* Animation Keyframes */
+@keyframes moveUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideUpLarge {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDownLarge {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}

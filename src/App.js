@@ -12,7 +12,7 @@ function App() {
         <MenuButton />
         <Routes>
           <Route path="/" element={<Deck />} />
-          <Route path="/menu" element={<MenuPage />} />
+          {/* <Route path="/menu" element={<MenuPage />} /> */}
         </Routes>
       </div>
     </Router>
