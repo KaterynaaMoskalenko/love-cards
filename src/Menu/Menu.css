@@ -103,11 +103,6 @@ h2 {
   transition: background-color 0.3s ease;
 }
 
-/* .language-popover-button:hover {
-  /* background-color: #f9f9f9; Subtle hover effect */
-/* } */
-*/
-
 /* Styling for the dropdown panel */
 .language-popover-panel {
   width: 100%;
