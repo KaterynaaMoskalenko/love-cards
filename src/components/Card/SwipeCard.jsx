@@ -1,9 +1,7 @@
-import { render } from "react-dom";
 import React, { useState, useEffect } from "react";
 import { useSprings, animated, interpolate } from "react-spring";
 import { useGesture } from "react-use-gesture";
-
-import { questions } from "../../data/QuestionsData";
+import { useTranslation } from "react-i18next";
 import loveCardImage from "../../assets/images/love-card.jpg";
 
 const cards = [loveCardImage];
@@ -23,28 +21,22 @@ const trans = (r, s) =>
   }deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck() {
-  const [language, setLanguage] = useState("EN");
   const [currentQuestions, setCurrentQuestions] = useState([]);
   const [gone] = useState(() => new Set()); // Track cards that are flicked out
   const [flipped, setFlipped] = useState(Array(20).fill(true)); // Track flip state for each card
+  const { t, i18n } = useTranslation();
+
   const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
-  // useEffect(() => {
-  //   if (questions[language]) {
-  //     const allQuestions = Object.values(questions[language]).flat(); // Flatten all categories for the selected language
-  //     const shuffledQuestions = shuffleArray(allQuestions); // Shuffle questions randomly
-  //     setCurrentQuestions(shuffledQuestions);
-  //     setFlipped(Array(shuffledQuestions.length).fill(true));
-  //   }
-  // }, [language]);
   useEffect(() => {
-    if (questions[language]) {
-      const selectedQuestions = sampleQuestions(questions[language]);
+    const questions = t("questions", { returnObjects: true });
+    if (questions) {
+      const selectedQuestions = sampleQuestions(questions);
       setCurrentQuestions(selectedQuestions);
-      setFlipped(Array(20).fill(true)); // Fixed size for flipping
+      // setFlipped(Array(20).fill(true)); // Fixed size for flipping
     }
-  }, []);
+  }, [t]);
 
   // Utility: Select 20 random questions from all categories
   const sampleQuestions = (questions) => {

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import "./Menu.css";
+import { useTranslation } from "react-i18next";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import {
   ChevronDownIcon,
@@ -20,17 +21,12 @@ import {
 function MenuButton() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const { t, i18n } = useTranslation();
 
-  const solutions = [
-    {
-      name: "Language",
-      icon: ChartPieIcon,
-      subOptions: [
-        { name: "EN", href: "#english" },
-        { name: "UA", href: "#ukrainian" },
-        { name: "PL", href: "#polish" },
-      ],
-    },
+  const languageOptions = [
+    { code: "en", name: "English" },
+    { code: "ua", name: "Ukrainian" },
+    { code: "pl", name: "Polish" },
   ];
 
   const openPopup = () => {
@@ -45,6 +41,9 @@ function MenuButton() {
       setIsPopupVisible(false);
       setIsClosing(false);
     }, 150);
+  };
+  const handleLanguageChange = (code) => {
+    i18n.changeLanguage(code);
   };
 
   return (
@@ -77,19 +76,22 @@ function MenuButton() {
                     </PopoverButton>
                     <PopoverPanel className="language-popover-panel" transition>
                       <div className="flex flex-col">
-                        {solutions
-                          .find((item) => item.name === "Language")
-                          ?.subOptions.map((subItem) => (
-                            <div key={subItem.name} className="language-option">
-                              <a
-                                href={subItem.href}
-                                className="font-semibold text-gray-900"
-                              >
-                                {subItem.name}
-                                <span className="absolute inset-0" />
-                              </a>
-                            </div>
-                          ))}
+                        {languageOptions.map((subItem) => (
+                          <div
+                            key={subItem.name}
+                            className="language-option font-semibold text-gray-900"
+                            onClick={() => handleLanguageChange(subItem.code)}
+                          >
+                            {subItem.name}
+                            {/* <a
+                              href={subItem.href}
+                              className="font-semibold text-gray-900"
+                            >
+                              {subItem.name}
+                              <span className="absolute inset-0" />
+                            </a> */}
+                          </div>
+                        ))}
                       </div>
                     </PopoverPanel>
                   </Popover>
