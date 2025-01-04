@@ -3,8 +3,48 @@ import { useSprings, animated, interpolate } from "react-spring";
 import { useGesture } from "react-use-gesture";
 import { useTranslation } from "react-i18next";
 import loveCardImage from "../../assets/images/love-card.jpg";
+import cardBackImage from "../../assets/images/Card-back.svg";
+import cardQuestionsKnowMeBetter from "../../assets/images/Card-pink.svg";
+import cardTeamUs from "../../assets/images/Card-orange.svg";
+import cardRomanticSparks from "../../assets/images/Card-red.svg";
+import cardReflectGrow from "../../assets/images/Card-yellow.svg";
+import cardVisionValues from "../../assets/images/Card-brown.svg";
 
 const cards = [loveCardImage];
+const CATEGORY_IMAGE_MAP = {
+  questionsKnowMeBetter: cardQuestionsKnowMeBetter,
+  questionsRomanticSparks: cardRomanticSparks,
+  questionsVisionValues: cardVisionValues,
+  questionsTeamUs: cardTeamUs,
+  questionsReflectGrow: cardReflectGrow,
+};
+
+/*
+[
+        {
+          question: "question1",
+          category: "questionsKnowMeBetter"
+        },
+        {
+          question: "question2",
+          category: "questionsKnowMeBetter"
+        },
+        {
+          question: "question3",
+          category: "questionsTeamUs"
+        },
+      ]
+      
+      [
+      ]
+      
+
+    CATEGORY_IMAGE_MAP = {
+      questionsKnowMeBetter: cardRed,
+      ...
+    }
+
+*/
 
 const to = (i) => ({
   x: 0,
@@ -21,6 +61,7 @@ const trans = (r, s) =>
   }deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck() {
+  console.log("!!!!!!!");
   const [currentQuestions, setCurrentQuestions] = useState([]);
   const [gone] = useState(() => new Set()); // Track cards that are flicked out
   const [flipped, setFlipped] = useState(Array(20).fill(true)); // Track flip state for each card
@@ -30,6 +71,7 @@ function Deck() {
     return array.sort(() => Math.random() - 0.5);
   };
   useEffect(() => {
+    console.log("########");
     const questions = t("questions", { returnObjects: true });
     if (questions) {
       const selectedQuestions = sampleQuestions(questions);
@@ -40,7 +82,84 @@ function Deck() {
 
   // Utility: Select 20 random questions from all categories
   const sampleQuestions = (questions) => {
-    const allQuestions = Object.values(questions).flat();
+    /*
+      {
+        questionsKnowMeBetter: ["question1", "question2"],
+        questionsTeamUs: ["question3", "question4"]
+      }
+      
+
+      [
+        ["questionsKnowMeBetter", ["question1", "question2"]],
+        ["questionsTeamUs", ["question3", "question4"]]
+      ].map(([category, questions]) => {
+        return questions.map(question => {
+          return {category, question}  
+        })
+      }).flat()
+      
+      [
+          [{
+          question: "question1",
+          category: "questionsKnowMeBetter"
+        },
+        {
+          question: "question2",
+          category: "questionsKnowMeBetter"
+        },],
+        [
+
+        ]
+      ]
+      
+      [["question1", "question2"], ["question3", "question4"]]
+
+      [
+        {
+          question: "question1",
+          category: "questionsKnowMeBetter"
+        },
+        {
+          question: "question2",
+          category: "questionsKnowMeBetter"
+        },
+        {
+          question: "question3",
+          category: "questionsTeamUs"
+        },
+      ]
+      
+      {
+        questionsKnowMeBetter: ["question1", "question2"],
+        questionsTeamUs: ["question3", "question4"]
+      }
+      
+      [
+        {
+          question: "question1",
+          category: "questionsKnowMeBetter"
+        },
+        {
+          question: "question2",
+          category: "questionsKnowMeBetter"
+        },
+        {
+          question: "question3",
+          category: "questionsTeamUs"
+        },
+      ]
+
+
+    */
+    // const allQuestions = Object.values(questions).flat();
+    const allQuestions = Object.entries(questions)
+      .map(([category, questions]) => {
+        return questions.map((question) => {
+          return { category, question };
+        });
+      })
+      .flat();
+
     const shuffledQuestions = shuffleArray(allQuestions);
     return shuffledQuestions.slice(0, 20);
   };
@@ -135,7 +254,9 @@ function Deck() {
             height: "100%",
             width: "100%",
             borderRadius: "15px",
-            backgroundImage: flipped[i] ? `url(${cards[0]})` : "",
+            backgroundImage: flipped[i]
+              ? `url(${CATEGORY_IMAGE_MAP[currentQuestions[i]?.category]})`
+              : `url(${cardBackImage})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -146,7 +267,7 @@ function Deck() {
           }}
         >
           {!flipped[i] && (
-            <div className="card-back">{currentQuestions[i]}</div>
+            <div className="card-back">{currentQuestions[i]?.question}</div>
           )}
         </div>
       </animated.div>
