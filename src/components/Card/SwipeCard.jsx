@@ -10,7 +10,7 @@ import cardRomanticSparks from "../../assets/images/Card-red.svg";
 import cardReflectGrow from "../../assets/images/Card-yellow.svg";
 import cardVisionValues from "../../assets/images/Card-brown.svg";
 
-const cards = [loveCardImage];
+// const cards = [loveCardImage];
 const CATEGORY_IMAGE_MAP = {
   questionsKnowMeBetter: cardQuestionsKnowMeBetter,
   questionsRomanticSparks: cardRomanticSparks,
@@ -18,33 +18,6 @@ const CATEGORY_IMAGE_MAP = {
   questionsTeamUs: cardTeamUs,
   questionsReflectGrow: cardReflectGrow,
 };
-
-/*
-[
-        {
-          question: "question1",
-          category: "questionsKnowMeBetter"
-        },
-        {
-          question: "question2",
-          category: "questionsKnowMeBetter"
-        },
-        {
-          question: "question3",
-          category: "questionsTeamUs"
-        },
-      ]
-      
-      [
-      ]
-      
-
-    CATEGORY_IMAGE_MAP = {
-      questionsKnowMeBetter: cardRed,
-      ...
-    }
-
-*/
 
 const to = (i) => ({
   x: 0,
@@ -82,76 +55,8 @@ function Deck() {
 
   // Utility: Select 20 random questions from all categories
   const sampleQuestions = (questions) => {
-    /*
-      {
-        questionsKnowMeBetter: ["question1", "question2"],
-        questionsTeamUs: ["question3", "question4"]
-      }
-      
-
-      [
-        ["questionsKnowMeBetter", ["question1", "question2"]],
-        ["questionsTeamUs", ["question3", "question4"]]
-      ].map(([category, questions]) => {
-        return questions.map(question => {
-          return {category, question}  
-        })
-      }).flat()
-      
-      [
-          [{
-          question: "question1",
-          category: "questionsKnowMeBetter"
-        },
-        {
-          question: "question2",
-          category: "questionsKnowMeBetter"
-        },],
-        [
-
-        ]
-      ]
-      
-      [["question1", "question2"], ["question3", "question4"]]
-
-      [
-        {
-          question: "question1",
-          category: "questionsKnowMeBetter"
-        },
-        {
-          question: "question2",
-          category: "questionsKnowMeBetter"
-        },
-        {
-          question: "question3",
-          category: "questionsTeamUs"
-        },
-      ]
-      
-      {
-        questionsKnowMeBetter: ["question1", "question2"],
-        questionsTeamUs: ["question3", "question4"]
-      }
-      
-      [
-        {
-          question: "question1",
-          category: "questionsKnowMeBetter"
-        },
-        {
-          question: "question2",
-          category: "questionsKnowMeBetter"
-        },
-        {
-          question: "question3",
-          category: "questionsTeamUs"
-        },
-      ]
-
-
-    */
-    // const allQuestions = Object.values(questions).flat();
+    // Object.entries to return an array of the key/value pairs of an object.
+    //Flat method of array instances creates a new array with all sub - array elements concatenated into it.
     const allQuestions = Object.entries(questions)
       .map(([category, questions]) => {
         return questions.map((question) => {
@@ -239,6 +144,7 @@ function Deck() {
         {...bind(i)}
         style={{
           display: "flex",
+          backgroundSize: "cover",
           transform: interpolate(
             [rot, scale, flip],
             (rot, scale, flip) => `${trans(rot, scale)} rotateY(${flip}deg)`
@@ -260,6 +166,7 @@ function Deck() {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
+
             cursor: "pointer",
             boxShadow: `6px 6px 8px rgba(135, 28, 76, 0.5), 
     -6px -6px 8px rgba(135, 28, 76, 0.5)

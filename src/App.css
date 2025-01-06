@@ -5,6 +5,8 @@
   width: 100%;
   height: 100%;
   justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .menu-button-container {
@@ -19,7 +21,6 @@
 
 .menu-icon {
   display: flex;
-  /* padding: 30px; */
   flex-direction: column; /* Align lines vertically */
   justify-content: space-between; /* Evenly space lines */
   width: 30px; /* Set the width of the button */
@@ -35,29 +36,27 @@
   border-radius: 2px;
   transition: background-color 0.3s ease;
 }
-
+.deck-of-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+}
 .card-flip {
   position: absolute;
-  width: 100vw;
-  height: 90vh;
-  /* top: 50%; */
-  will-change: transform;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Poppins", serif;
+  width: 268px;
+  height: 400px;
+  perspective: 1000px;
 }
 
 /* child of child of App div */
 .card-animation {
-  background-color: white;
-  background-size: auto 85%;
+  position: absolute;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
-  width: 45vh;
-  max-width: 271px;
-  height: 85vh;
-  max-height: 473px;
+  background-position: center;
+  width: 100%;
+  height: 100%;
   will-change: transform;
   border-radius: 10px;
   font-family: "Poppins", serif;
@@ -69,14 +68,11 @@
   justify-content: center;
   text-align: center;
   font-size: 1rem;
-
   padding: 20px;
-
   width: 100%;
   height: 100%;
   border-radius: 10px;
   box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
-
   font-family: "Poppins", "Nunito Sans", serif;
   font-weight: 500;
   font-style: normal;
