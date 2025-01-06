@@ -40,12 +40,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 100px;
+  padding-bottom: 70px;
 }
 .card-flip {
   position: absolute;
   width: 268px;
-  height: 400px;
+  height: 412px;
   perspective: 1000px;
 }
 
