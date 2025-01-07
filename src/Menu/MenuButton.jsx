@@ -48,7 +48,9 @@ function MenuButton() {
 
   return (
     <div>
+      
       <div className="menu-button-container">
+        {/* <h1>TWO OF US</h1> */}
         <div className="menu-icon" onClick={openPopup}>
           <div className="line"></div>
           <div className="line"></div>
