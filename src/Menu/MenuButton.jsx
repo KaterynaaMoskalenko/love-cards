@@ -1,15 +1,10 @@
 // import { div } from "motion/react-client";
 import React, { useState } from "react";
-import { Link } from "react-router";
+
 import "./Menu.css";
 import { useTranslation } from "react-i18next";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  ArrowUturnLeftIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import {
   ArrowPathIcon,
   ChartPieIcon,
@@ -48,7 +43,6 @@ function MenuButton() {
 
   return (
     <div>
-      
       <div className="menu-button-container">
         {/* <h1>TWO OF US</h1> */}
         <div className="menu-icon" onClick={openPopup}>
