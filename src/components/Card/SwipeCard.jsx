@@ -39,6 +39,7 @@ function Deck() {
   const [gone] = useState(() => new Set()); // Track cards that are flicked out
   const [flipped, setFlipped] = useState(Array(20).fill(true)); // Track flip state for each card
   const { t, i18n } = useTranslation();
+  const [isClickInProgress, setIsClickInProgress] = useState(false);
 
   const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
@@ -77,8 +78,12 @@ function Deck() {
   }));
 
   const handleClick = (index) => {
+    if (!isTopCardClick(index)) return;
+    if (isClickInProgress) return;
+    setIsClickInProgress(true);
     set((i) => {
       if (i !== index) return;
+
       const flip = flipped[index] ? 0 : 180; // Rotate by 180 degrees on flip
       console.log("START FLIP", i);
       setTimeout(() => {
@@ -89,13 +94,20 @@ function Deck() {
           console.log("NEW FLIPPED", i, newFlipped[i]);
           return newFlipped;
         });
+        setIsClickInProgress(false);
       }, 250);
       return { flip, config: { duration: 500 } }; // Slower animation for flip
     });
   };
-
+  const isTopCardClick = (index) => {
+    const topCardIndex = gone.size
+      ? Math.min(...gone) - 1
+      : currentQuestions.length - 1;
+    return topCardIndex == index;
+  };
   const bind = useGesture(
     ({ args: [index], down, delta: [xDelta], direction: [xDir], velocity }) => {
+      if (!isTopCardClick(index)) return;
       //   Android FIX: Increase velocity and xDelta thresholds for swiping:
       const trigger = velocity > 0.7 || Math.abs(xDelta) > 50;
       console.log("xDelta", xDelta, "velocity", velocity, "xDir", xDir);
