@@ -4,6 +4,13 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      categories: {
+        questionsKnowMeBetter: "Know Me Better",
+        questionsRomanticSparks: "Romantic Sparks",
+        questionsVisionValues: "Vision&Values",
+        questionsTeamUs: "Team Us",
+        questionsReflectGrow: "Reflect Growth",
+      },
       questions: {
         questionsKnowMeBetter: [
           "What’s your idea of the perfect date night for us?",
@@ -120,6 +127,13 @@ const resources = {
   },
   pl: {
     translation: {
+      categories: {
+        questionsKnowMeBetter: "Know Me Better - PL",
+        questionsRomanticSparks: "Romantic Sparks - PL",
+        questionsVisionValues: "Vision&Values - PL",
+        questionsTeamUs: "Team Us - PL",
+        questionsReflectGrow: "Reflect Growth - PL",
+      },
       questions: {
         questionsKnowMeBetter: [
           "Jaka jest twoja wizja idealnej randki dla nas?",
@@ -236,6 +250,13 @@ const resources = {
   },
   ua: {
     translation: {
+      categories: {
+        questionsKnowMeBetter: "Know Me Better - UA",
+        questionsRomanticSparks: "Romantic Sparks - UA",
+        questionsVisionValues: "Vision&Values - UA",
+        questionsTeamUs: "Team Us - UA",
+        questionsReflectGrow: "Reflect Growth - UA",
+      },
       questions: {
         questionsKnowMeBetter: [
           "Яка для тебе ідея ідеального побачення для нас?",
@@ -356,6 +377,8 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
+    keySeparator: ".",
+
     lng: "en", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
     // if you're using a language detector, do not define the lng option

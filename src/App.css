@@ -93,3 +93,10 @@
   font-weight: 500;
   font-style: normal;
 }
+
+.favorite-question {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  bottom: 50px;
+}

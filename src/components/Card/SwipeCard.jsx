@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useSprings, animated, interpolate } from "react-spring";
 import { useGesture } from "react-use-gesture";
 import { useTranslation } from "react-i18next";
-import loveCardImage from "../../assets/images/love-card.jpg";
 import cardBackImage from "../../assets/images/Card-back.svg";
 import cardQuestionsKnowMeBetter from "../../assets/images/Card-pink.svg";
 import cardTeamUs from "../../assets/images/Card-orange.svg";
 import cardRomanticSparks from "../../assets/images/Card-red.svg";
 import cardReflectGrow from "../../assets/images/Card-yellow.svg";
 import cardVisionValues from "../../assets/images/Card-brown.svg";
+import { addToHistory } from "../../Menu/history/HistoryService";
+import { HeartIcon } from "@heroicons/react/20/solid";
+import { addToFavorites } from "../../Menu/favorites/FavoritesService";
 
 // const cards = [loveCardImage];
 const CATEGORY_IMAGE_MAP = {
@@ -33,8 +35,7 @@ const trans = (r, s) =>
     r / 10
   }deg) rotateZ(${r}deg) scale(${s})`;
 
-function Deck() {
-  console.log("!!!!!!!");
+function Deck({ categoryFilters }) {
   const [currentQuestions, setCurrentQuestions] = useState([]);
   const [gone] = useState(() => new Set()); // Track cards that are flicked out
   const [flipped, setFlipped] = useState(Array(20).fill(true)); // Track flip state for each card
@@ -45,28 +46,32 @@ function Deck() {
     return array.sort(() => Math.random() - 0.5);
   };
   useEffect(() => {
-    console.log("########");
     const questions = t("questions", { returnObjects: true });
     if (questions) {
-      const selectedQuestions = sampleQuestions(questions);
+      const filteredQuestions = prepareQuestions(questions).filter(
+        (question) => categoryFilters[question.category]
+      );
+      const selectedQuestions = sampleQuestions(filteredQuestions);
       setCurrentQuestions(selectedQuestions);
-      // setFlipped(Array(20).fill(true)); // Fixed size for flipping
     }
-  }, [t]);
+  }, [t, categoryFilters]);
 
-  // Utility: Select 20 random questions from all categories
-  const sampleQuestions = (questions) => {
+  const prepareQuestions = (questionData) => {
     // Object.entries to return an array of the key/value pairs of an object.
     //Flat method of array instances creates a new array with all sub - array elements concatenated into it.
-    const allQuestions = Object.entries(questions)
+    const allQuestions = Object.entries(questionData)
       .map(([category, questions]) => {
         return questions.map((question) => {
           return { category, question };
         });
       })
       .flat();
+    return allQuestions;
+  };
 
-    const shuffledQuestions = shuffleArray(allQuestions);
+  // Utility: Select 20 random questions from all categories
+  const sampleQuestions = (questions) => {
+    const shuffledQuestions = shuffleArray(questions);
     return shuffledQuestions.slice(0, 20);
   };
 
@@ -100,10 +105,14 @@ function Deck() {
     });
   };
   const isTopCardClick = (index) => {
+    const topCardIndex = getTopCardIndex();
+    return topCardIndex == index;
+  };
+  const getTopCardIndex = () => {
     const topCardIndex = gone.size
       ? Math.min(...gone) - 1
       : currentQuestions.length - 1;
-    return topCardIndex == index;
+    return topCardIndex;
   };
   const bind = useGesture(
     ({ args: [index], down, delta: [xDelta], direction: [xDir], velocity }) => {
@@ -114,15 +123,21 @@ function Deck() {
       const dir = xDir || (xDelta < 0 ? -1 : 1);
       if (!down && trigger) {
         gone.add(index);
+        addToHistory(currentQuestions[index]);
         //setFlipped(false);
       }
       set((i) => {
         if (index !== i) return;
         const isGone = gone.has(index);
+        const playedCards = [...gone].map((goneIndex) => ({
+          index: goneIndex,
+          isGone: true, // Mark as gone
+        }));
         const x = isGone ? (150 + window.innerWidth) * dir : down ? xDelta : 0;
         const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0);
         const scale = down ? 1.1 : 1;
         console.log("isGone", isGone, "x", x, "rot", rot, "scale", scale);
+        console.log("playedCards", playedCards);
         return {
           x,
           rot,
@@ -139,59 +154,82 @@ function Deck() {
     }
   );
 
-  return props.map(({ x, y, rot, scale, flip }, i) => (
-    <animated.div
-      className="deck-of-cards"
-      key={i}
+  return (
+    <div
+      id="deck-container"
       style={{
-        transform: interpolate(
-          [x, y],
-          (x, y) => `translate3d(${x}px,${y}px,0)`
-        ),
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        width: "100%",
       }}
     >
-      <animated.div
-        className="card-flip"
-        onClick={() => handleClick(i)}
-        {...bind(i)}
-        style={{
-          display: "flex",
-          backgroundSize: "cover",
-          transform: interpolate(
-            [rot, scale, flip],
-            (rot, scale, flip) => `${trans(rot, scale)} rotateY(${flip}deg)`
-          ),
-        }}
-      >
-        <div
-          className="card-animation"
+      {props.map(({ x, y, rot, scale, flip }, i) => (
+        <animated.div
+          className="deck-of-cards"
+          key={i}
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100%",
-            width: "100%",
-            borderRadius: "15px",
-            backgroundImage: flipped[i]
-              ? `url(${CATEGORY_IMAGE_MAP[currentQuestions[i]?.category]})`
-              : `url(${cardBackImage})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-
-            cursor: "pointer",
-            boxShadow: `6px 6px 8px rgba(135, 28, 76, 0.5), 
-    -6px -6px 8px rgba(135, 28, 76, 0.5)
-  `,
+            transform: interpolate(
+              [x, y],
+              (x, y) => `translate3d(${x}px,${y}px,0)`
+            ),
           }}
         >
-          {!flipped[i] && (
-            <div className="card-back">{currentQuestions[i]?.question}</div>
-          )}
-        </div>
-      </animated.div>
-    </animated.div>
-  ));
+          <animated.div
+            className="card-flip"
+            onClick={() => handleClick(i)}
+            {...bind(i)}
+            style={{
+              display: "flex",
+              backgroundSize: "cover",
+              transform: interpolate(
+                [rot, scale, flip],
+                (rot, scale, flip) => `${trans(rot, scale)} rotateY(${flip}deg)`
+              ),
+            }}
+          >
+            <div
+              className="card-animation"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                width: "100%",
+                borderRadius: "15px",
+                backgroundImage: flipped[i]
+                  ? `url(${CATEGORY_IMAGE_MAP[currentQuestions[i]?.category]})`
+                  : `url(${cardBackImage})`,
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+
+                cursor: "pointer",
+                boxShadow: `6px 6px 8px rgba(135, 28, 76, 0.5), 
+    -6px -6px 8px rgba(135, 28, 76, 0.5)
+  `,
+              }}
+            >
+              {!flipped[i] && (
+                <div className="card-back">{currentQuestions[i]?.question}</div>
+              )}
+            </div>
+          </animated.div>
+        </animated.div>
+      ))}
+      <div
+        className="favorite-question"
+        onClick={() => {
+          const topCardIndex = getTopCardIndex();
+          const topCardQuestion = currentQuestions[topCardIndex];
+          addToFavorites(topCardQuestion);
+        }}
+      >
+        <HeartIcon />
+      </div>
+    </div>
+  );
 }
 
 export default Deck;

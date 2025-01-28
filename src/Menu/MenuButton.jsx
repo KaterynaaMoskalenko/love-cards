@@ -3,20 +3,24 @@ import React, { useState } from "react";
 
 import "./Menu.css";
 import { useTranslation } from "react-i18next";
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
-import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import {
-  ArrowPathIcon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-} from "@heroicons/react/24/outline";
+  Popover,
+  PopoverButton,
+  PopoverPanel,
+  Switch,
+} from "@headlessui/react";
+import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
+import { getPurchaseStatus, initiatePurchase } from "./stripe/StripeService";
+import { useNavigate } from "react-router";
 
-function MenuButton() {
+function MenuButton({ categoryFilters, setCategoryFilters }) {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const handleCategoryChange = (category, enabled) => {
+    setCategoryFilters({ ...categoryFilters, [category]: !enabled });
+  };
 
   const languageOptions = [
     { code: "en", name: "English" },
@@ -71,7 +75,7 @@ function MenuButton() {
                     {/* <ChevronDownIcon className="down-icon" /> */}
                   </PopoverButton>
                   <PopoverPanel className="language-popover-panel" transition>
-                    <div className="flex flex-col">
+                    <div>
                       {languageOptions.map((subItem) => (
                         <div
                           key={subItem.name}
@@ -87,21 +91,65 @@ function MenuButton() {
                       ))}
                     </div>
                   </PopoverPanel>
-
-                  <li>
-                    <a href="#option2">History</a>
-                  </li>
-
-                  <li>
-                    <a href="#option1">Favorites</a>
-                  </li>
-                  <li>
-                    <a href="#option2">Category change</a>
-                  </li>
-                  <li>
-                    <a href="#option3">About</a>
-                  </li>
                 </Popover>
+                <li>
+                  <div
+                    onClick={() => {
+                      closePopup();
+                      navigate("/history");
+                    }}
+                  >
+                    History
+                  </div>
+                </li>
+
+                <li>
+                  <div
+                    onClick={() => {
+                      closePopup();
+                      navigate("/favorites");
+                    }}
+                  >
+                    Favorites
+                  </div>
+                </li>
+                <Popover>
+                  <PopoverButton className="language-popover-button">
+                    Category change
+                  </PopoverButton>
+                  <PopoverPanel className="language-popover-panel" transition>
+                    <div className="flex flex-col">
+                      {Object.entries(categoryFilters).map(
+                        ([category, enabled]) => {
+                          return (
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                checked={enabled}
+                                onChange={() =>
+                                  handleCategoryChange(category, enabled)
+                                }
+                              />
+                              <label for="scales">
+                                {t(`categories.${category}`)}
+                              </label>
+                            </div>
+                          );
+                        }
+                      )}
+                    </div>
+                  </PopoverPanel>
+                </Popover>
+                <li>
+                  <a href="#option3">About</a>
+                </li>
+                <li>
+                  {!getPurchaseStatus() && (
+                    <div onClick={initiatePurchase}>checkout</div>
+                  )}
+                </li>
               </div>
             </div>
           </div>
