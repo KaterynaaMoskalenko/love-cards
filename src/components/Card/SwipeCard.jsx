@@ -10,6 +10,7 @@ import cardReflectGrow from "../../assets/images/Card-yellow.svg";
 import cardVisionValues from "../../assets/images/Card-brown.svg";
 import { addToHistory } from "../../Menu/history/HistoryService";
 import { HeartIcon } from "@heroicons/react/20/solid";
+
 import { addToFavorites } from "../../Menu/favorites/FavoritesService";
 
 // const cards = [loveCardImage];

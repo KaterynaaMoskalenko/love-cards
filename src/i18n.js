@@ -4,6 +4,14 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      menu: {
+        language: "Language",
+        history: "History",
+        favorites: "Favorites",
+        categoryChange: "Category Change",
+        about: "About",
+      },
+
       categories: {
         questionsKnowMeBetter: "Know Me Better",
         questionsRomanticSparks: "Romantic Sparks",
@@ -127,6 +135,13 @@ const resources = {
   },
   pl: {
     translation: {
+      menu: {
+        language: "Język",
+        history: "Historia",
+        favorites: "Ulubione",
+        categoryChange: "Zmiana kategorii",
+        about: "O nas",
+      },
       categories: {
         questionsKnowMeBetter: "Know Me Better - PL",
         questionsRomanticSparks: "Romantic Sparks - PL",
@@ -250,6 +265,13 @@ const resources = {
   },
   ua: {
     translation: {
+      menu: {
+        language: "Мова",
+        history: "Історія",
+        favorites: "Улюблене",
+        categoryChange: "Зміна категорії",
+        about: "Про нас",
+      },
       categories: {
         questionsKnowMeBetter: "Know Me Better - UA",
         questionsRomanticSparks: "Romantic Sparks - UA",
