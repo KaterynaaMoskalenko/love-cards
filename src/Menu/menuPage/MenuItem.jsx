@@ -5,9 +5,11 @@ const MenuItem = forwardRef(({ icon, labelKey, onClick, ...props }, ref) => {
   const { t, i18n } = useTranslation();
 
   return (
-    <div onClick={onClick} ref={ref} {...props}>
+    <div className={'menu-item'} onClick={onClick} ref={ref} {...props}>
       {icon}
-      {t(`menu.${labelKey}`)}
+      <div className={'menu-item-label'}>
+        {t(`menu.${labelKey}`)}
+      </div>
     </div>
   );
 });
