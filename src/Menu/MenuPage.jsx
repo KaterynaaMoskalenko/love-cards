@@ -11,7 +11,7 @@ import MenuItem from "./menuPage/MenuItem";
 
 import "./Menu.css";
 import LanguageMenuItem from "./menuPage/LanguageMenuItem";
-import {useNavigate} from "react-router";
+import { useNavigate } from "react-router";
 import CategoryChangeMenuItem from "./menuPage/CategoryChangeMenuItem";
 
 function MenuPage({
@@ -25,7 +25,6 @@ function MenuPage({
 
   const navigate = useNavigate();
 
-
   return (
     <div
       className={`popup-overlay ${isClosing ? "close" : ""}`}
@@ -38,45 +37,45 @@ function MenuPage({
         </button>
         <div className="popup-content settings-container">
           <div className={`menu-list ${isPopupVisible ? "move-down" : ""}`}>
-            <LanguageMenuItem/>
+            <LanguageMenuItem />
 
             <MenuItem
-                icon={<ArchiveBoxIcon width={"20px"}/>}
-                labelKey={"history"}
-                onClick={() => {
-                  closePopup();
-                  navigate("/history");
-                }}
+              icon={<ArchiveBoxIcon width={"20px"} />}
+              labelKey={"history"}
+              onClick={() => {
+                closePopup();
+                navigate("/history");
+              }}
             />
 
             <MenuItem
-                icon={<HeartIcon width={"20px"}/>}
-                labelKey={"favorites"}
-                onClick={() => {
-                  closePopup();
-                  navigate("/favorites");
-                }}
+              icon={<HeartIcon width={"20px"} />}
+              labelKey={"favorites"}
+              onClick={() => {
+                closePopup();
+                navigate("/favorites");
+              }}
             />
 
             <CategoryChangeMenuItem
-                categoryFilters={categoryFilters}
-                setCategoryFilters={setCategoryFilters}
+              categoryFilters={categoryFilters}
+              setCategoryFilters={setCategoryFilters}
             />
 
             <MenuItem
-                icon={<InformationCircleIcon width={"20px"}/>}
-                labelKey={"about"}
-                onClick={() => {
-                  closePopup();
-                  navigate("/about");
-                }}
+              icon={<InformationCircleIcon width={"20px"} />}
+              labelKey={"about"}
+              onClick={() => {
+                closePopup();
+                navigate("/about");
+              }}
             />
 
             {!getPurchaseStatus() && (
               <div className="promo-card" onClick={initiatePurchase}>
                 <div className="promo-text">
                   <h2>Get a free subscription, sneak peeks & more!</h2>
-                  <p>Join the community ></p>
+                  <p>Join the community </p>
                 </div>
               </div>
             )}
