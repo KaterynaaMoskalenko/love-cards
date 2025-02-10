@@ -4,11 +4,17 @@ import { useNavigate } from "react-router";
 
 import "./QuestionsHistoryPage.css";
 import {useTranslation} from "react-i18next";
+import ZeroState from "../../components/ZeroState/ZeroState";
 
 export const QuestionsHistoryPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const history = getQuestionHistory();
+
+  if (history.length === 0) {
+      return <ZeroState type={"history"} onAction={() => navigate("/")}/>;
+  }
+
     return (
         <div className="history-container">
             <h2 className="history-title">History</h2>

@@ -10,6 +10,7 @@ import { HeartIcon as HeartIconOutline } from "@heroicons/react/24/outline";
 
 import "./FavoritesPage.css";
 import { useTranslation } from "react-i18next";
+import ZeroState from "../../components/ZeroState/ZeroState";
 
 export const FavoriteQuestionsPage = () => {
   const [favoriteQuestions, setFavoriteQuestion] = useState(
@@ -45,6 +46,10 @@ export const FavoriteQuestionsPage = () => {
       setToast(null);
     }, 3000);
   };
+
+  if (favoriteQuestions.length === 0) {
+    return <ZeroState onAction={() => navigate("/")} />;
+  }
 
   return (
     <div className="favorites-container">
