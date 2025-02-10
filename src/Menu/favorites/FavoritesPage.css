@@ -3,7 +3,7 @@ body {
     padding: 0;
 }
 
-.history-container {
+.favorites-container {
     color: white;
     height: calc(100% - 90px);
     max-height: 100vh;
@@ -16,7 +16,7 @@ body {
     box-sizing:content-box;
 }
 
-.history-title {
+.favorites-title {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
@@ -24,15 +24,15 @@ body {
 }
 
 /* Two Columns Layout */
-.history-grid {
+.favorites-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
 }
 
-/* History Card Styling */
-.history-card {
+/* Favorites Card Styling */
+.favorites-card {
     width: calc(50% - 10px); /* Two columns */
     border-radius: 12px;
     padding: 20px;
@@ -43,12 +43,12 @@ body {
 }
 
 /* Hover Effect */
-.history-card:hover {
+.favorites-card:hover {
     transform: translateY(-5px);
 }
 
 /* Category Name */
-.history-category {
+.favorites-category {
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
@@ -57,16 +57,68 @@ body {
 }
 
 /* Question Text */
-.history-question {
+.favorites-question {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
 }
 
 /* Date Text */
-.history-date {
+.favorites-date {
     font-size: 12px;
     opacity: 0.8;
+}
+
+/* Heart Button */
+.heart-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+/* Heart Icon Styles */
+.heart-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease;
+}
+
+.heart-button:hover .heart-icon {
+    transform: scale(1.2);
+}
+
+.filled {
+    color: white;
+}
+
+.outlined {
+    color: white;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+/* Fade In & Out Animation */
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 /* Category Colors */
@@ -92,7 +144,7 @@ body {
 
 /* Responsive Design */
 @media (max-width: 600px) {
-    .history-card {
+    .favorites-card {
         width: 100%; /* Stack on mobile */
     }
 }
