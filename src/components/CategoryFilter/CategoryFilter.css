@@ -1,0 +1,64 @@
+/* General Styling */
+.category-filter {
+    text-align: center;
+    padding: 10px;
+}
+
+/* Flexbox Container */
+.category-filter .category-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Keeps spacing consistent in all rows */
+    gap: 16px; /* Uniform spacing */
+    max-width: 340px; /* Prevents excessive stretching */
+    margin: 0 auto;
+}
+
+/* Wrapper for each category */
+.category-filter .category-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px; /* Fixed width for uniformity */
+}
+
+/* Category Item (Circular Buttons) */
+.category-filter .category-item {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.category-filter .category-item:hover {
+    transform: scale(1.05);
+}
+
+/* Heart Icon - Bigger & Outlined When Inactive */
+.category-filter .heart-icon {
+    width: 36px;
+    height: 36px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Category Label - Below the Circle */
+.category-filter .category-name {
+    font-size: 13px;
+    color: white;
+    text-align: center;
+    margin-top: 6px;
+    min-height: 32px; /* Ensures consistent height for 1 or 2-line text */
+    width: 100px;
+    line-height: 1.2;
+}
