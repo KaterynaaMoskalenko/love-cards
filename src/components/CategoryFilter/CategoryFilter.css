@@ -62,3 +62,10 @@
     width: 100px;
     line-height: 1.2;
 }
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .category-filter .category-wrapper {
+        width: 90px; /* Fixed width for uniformity */
+    }
+}

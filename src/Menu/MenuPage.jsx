@@ -4,7 +4,7 @@ import {
   ArchiveBoxIcon,
   ArrowUturnLeftIcon,
   HeartIcon,
-  InformationCircleIcon,
+  InformationCircleIcon, TagIcon,
 } from "@heroicons/react/20/solid";
 import { getPurchaseStatus, initiatePurchase } from "./stripe/StripeService";
 import MenuItem from "./menuPage/MenuItem";
@@ -13,6 +13,7 @@ import "./Menu.css";
 import LanguageMenuItem from "./menuPage/LanguageMenuItem";
 import { useNavigate } from "react-router";
 import CategoryChangeMenuItem from "./menuPage/CategoryChangeMenuItem";
+import NotPaidMenuItem from "./menuPage/NotPaidMenuItem";
 
 function MenuPage({
   closePopup,
@@ -24,6 +25,8 @@ function MenuPage({
   const { t } = useTranslation();
 
   const navigate = useNavigate();
+
+  const isPaid = getPurchaseStatus();
 
   return (
     <div
@@ -39,28 +42,52 @@ function MenuPage({
           <div className={`menu-list ${isPopupVisible ? "move-down" : ""}`}>
             <LanguageMenuItem />
 
-            <MenuItem
-              icon={<ArchiveBoxIcon width={"20px"} />}
-              labelKey={"history"}
-              onClick={() => {
-                closePopup();
-                navigate("/history");
-              }}
-            />
+            {isPaid
+                ? (
+                    <MenuItem
+                        icon={<ArchiveBoxIcon width={"20px"} />}
+                        labelKey={"history"}
+                        onClick={() => {
+                          closePopup();
+                          navigate("/history");
+                        }}
+                    />
+                )
+                : (
+                    <NotPaidMenuItem
+                        icon={<ArchiveBoxIcon width={"20px"} />}
+                        labelKey={"history"}
+                    />
+                )
+            }
 
-            <MenuItem
-              icon={<HeartIcon width={"20px"} />}
-              labelKey={"favorites"}
-              onClick={() => {
-                closePopup();
-                navigate("/favorites");
-              }}
-            />
+            {isPaid
+                ? (
+                    <MenuItem
+                        icon={<HeartIcon width={"20px"} />}
+                        labelKey={"favorites"}
+                        onClick={() => {
+                          closePopup();
+                          navigate("/favorites");
+                        }}
+                    />
+                )
+                : (
+                    <NotPaidMenuItem icon={<HeartIcon width={"20px"} />} labelKey={"favorites"} />
+                )
+            }
 
-            <CategoryChangeMenuItem
-              categoryFilters={categoryFilters}
-              setCategoryFilters={setCategoryFilters}
-            />
+            {isPaid
+                ? (
+                    <CategoryChangeMenuItem
+                        categoryFilters={categoryFilters}
+                        setCategoryFilters={setCategoryFilters}
+                    />
+                )
+                : (
+                    <NotPaidMenuItem labelKey={"categoryChange"} icon={<TagIcon height={20}/>} />
+                )
+            }
 
             <MenuItem
               icon={<InformationCircleIcon width={"20px"} />}
@@ -71,7 +98,7 @@ function MenuPage({
               }}
             />
 
-            {!getPurchaseStatus() && (
+            {!isPaid && (
               <div className="promo-card" onClick={initiatePurchase}>
                 <div className="promo-text">
                   <h2>Get a free subscription, sneak peeks & more!</h2>
