@@ -6,7 +6,7 @@ import {
   HeartIcon,
   InformationCircleIcon, TagIcon,
 } from "@heroicons/react/20/solid";
-import { getPurchaseStatus, initiatePurchase } from "./stripe/StripeService";
+import { getPurchaseStatus } from "./stripe/StripeService";
 import MenuItem from "./menuPage/MenuItem";
 
 import "./Menu.css";
@@ -14,6 +14,8 @@ import LanguageMenuItem from "./menuPage/LanguageMenuItem";
 import { useNavigate } from "react-router";
 import CategoryChangeMenuItem from "./menuPage/CategoryChangeMenuItem";
 import NotPaidMenuItem from "./menuPage/NotPaidMenuItem";
+import {useUnlockPaidFeaturesPopup} from "../components/UnlockPaidFeatures/UnlockPaidFeaturesContext";
+import {XMarkIcon} from "@heroicons/react/24/outline";
 
 function MenuPage({
   closePopup,
@@ -25,6 +27,7 @@ function MenuPage({
   const { t } = useTranslation();
 
   const navigate = useNavigate();
+  const { showPopup } = useUnlockPaidFeaturesPopup();
 
   const isPaid = getPurchaseStatus();
 
@@ -35,9 +38,7 @@ function MenuPage({
     >
       <div className="popup-window" onClick={(e) => e.stopPropagation()}>
         <h1 className="menu-header">Settings</h1>
-        <button className="close-button" onClick={closePopup}>
-          <ArrowUturnLeftIcon />
-        </button>
+        <XMarkIcon className="close-button" onClick={closePopup}/>
         <div className="popup-content settings-container">
           <div className={`menu-list ${isPopupVisible ? "move-down" : ""}`}>
             <LanguageMenuItem />
@@ -99,10 +100,10 @@ function MenuPage({
             />
 
             {!isPaid && (
-              <div className="promo-card" onClick={initiatePurchase}>
+              <div className="promo-card" onClick={() => showPopup()}>
                 <div className="promo-text">
-                  <h2>Get a free subscription, sneak peeks & more!</h2>
-                  <p>Join the community </p>
+                  <h2>Play 150 cards, see history, save favorite questions & more!</h2>
+                  <p>Start now!</p>
                 </div>
               </div>
             )}

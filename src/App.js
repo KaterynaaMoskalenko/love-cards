@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MenuButton from "./Menu/MenuButton";
 import Header from "./Header/Header";
 import "./App.css";
-import Deck from "./components/Card/SwipeCard";
+import {QuestionsDeck} from "./components/QuestionsDeck/QuestionsDeck";
 import { PurchaseSuccessPage } from "./Menu/stripe/PurchaseSuccessPage";
 import { PurchaseCancelledPage } from "./Menu/stripe/PurchaseCancelledPage";
 import { QuestionsHistoryPage } from "./Menu/history/QuestionsHistoryPage";
 import { FavoriteQuestionsPage } from "./Menu/favorites/FavoritesPage";
+import {UnlockPaidFeaturesPopupProvider} from "./components/UnlockPaidFeatures/UnlockPaidFeaturesContext";
 
 const INITIAL_CATEGORY_FILTERS = {
   questionsKnowMeBetter: true,
@@ -24,30 +25,32 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <MenuButton
-          categoryFilters={categoryFilters}
-          setCategoryFilters={setCategoryFilters}
-        />
+      <UnlockPaidFeaturesPopupProvider>
+        <div className="App">
+          <Header />
+          <MenuButton
+            categoryFilters={categoryFilters}
+            setCategoryFilters={setCategoryFilters}
+          />
 
-        <Routes>
-          <Route
-            path="/"
-            element={<Deck categoryFilters={categoryFilters} />}
-          />
-          <Route path="/history" element={<QuestionsHistoryPage />} />
-          <Route path="/favorites" element={<FavoriteQuestionsPage />} />
-          <Route
-            path="/purchase-completed-successfully"
-            element={<PurchaseSuccessPage />}
-          />
-          <Route
-            path="/purchase-cancelled"
-            element={<PurchaseCancelledPage />}
-          />
-        </Routes>
-      </div>
+          <Routes>
+            <Route
+              path="/"
+              element={<QuestionsDeck categoryFilters={categoryFilters} />}
+            />
+            <Route path="/history" element={<QuestionsHistoryPage />} />
+            <Route path="/favorites" element={<FavoriteQuestionsPage />} />
+            <Route
+              path="/purchase-completed-successfully"
+              element={<PurchaseSuccessPage />}
+            />
+            <Route
+              path="/purchase-cancelled"
+              element={<PurchaseCancelledPage />}
+            />
+          </Routes>
+        </div>
+      </UnlockPaidFeaturesPopupProvider>
     </Router>
   );
 }

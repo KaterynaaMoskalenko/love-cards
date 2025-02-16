@@ -1,5 +1,12 @@
 .popup-overlay {
-  background-color: rgba(191, 107, 120);
+ 
+background: linear-gradient(
+    130deg,
+    #2a0a14,  /* Softer deep red-wine base */
+    #a33850,  /* Muted crimson */
+    #c87c3c   /* Warmer, toned-down amber */
+);
+  
   position: fixed;
   top: 0;
   left: 0;
@@ -103,7 +110,7 @@
 }
 
 .popup-window {
-  background-color: rgba(191, 107, 120, 0.8);
+  /* background-color: rgba(191, 107, 120, 0.8); */
   padding: 20px;
   width: 100%;
   height: 100%;
@@ -131,14 +138,13 @@
 
 .close-button {
   background: none;
-  width: 40px;
-  height: 40px;
-  color: antiquewhite;
-  border: none;
+  width: 28px;
+  height: 28px;
+  color: white;
   cursor: pointer;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
 }
 
 .popup-window h1 {

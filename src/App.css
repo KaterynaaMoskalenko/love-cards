@@ -1,9 +1,11 @@
 .App {
-  background: rgba(158, 61, 76, 0.792);
-  /* background: (to right, rgb(255, 126, 95), rgb(254, 180, 123)); */
-  /* background-image: url("./assets/images/galaxy.jpeg");
-  background-repeat: no-repeat;
-  background-size: cover; */
+  background: linear-gradient(
+    130deg,
+    rgba(33, 5, 16, 0.95),
+    rgba(152, 24, 54, 0.886),
+    rgba(204, 126, 17, 0.9)
+  );
+
   position: fixed;
   overflow: hidden;
   width: 100%;
@@ -21,8 +23,9 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  color: white;
-  font-family: "Poppins", serif;
+  color: rgb(255, 247, 240);
+  font-family: "Birthstone", serif;
+  font-size: 25px;
 }
 
 .menu-button-container {
@@ -92,11 +95,4 @@
   font-family: "Poppins", "Nunito Sans", serif;
   font-weight: 500;
   font-style: normal;
-}
-
-.favorite-question {
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  bottom: 50px;
 }

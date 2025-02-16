@@ -1,0 +1,114 @@
+/* Container to center button */
+.like-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+/* Like button */
+.like-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heart icon */
+.heart-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.1s ease-in-out;
+}
+
+/* Press effect */
+.like-button:active {
+    transform: scale(0.95);
+    transition: transform 0.3s ease-in-out;
+}
+
+.like-button:active .heart-icon {
+    transform: scale(1.1);
+    opacity: 0.5;
+}
+
+/* Liked state */
+.like-button.liked {
+    /*background: #ff4b5c;*/
+}
+
+.like-button.liked .heart-icon {
+    color: rgba(255, 0, 0, 0.9);
+    transform: scale(1.2);
+}
+
+/* Floating heart animation */
+.floating-heart {
+    position: absolute;
+    bottom: 10px;
+    color: rgba(255, 0, 0, 0.9);
+    width: 40px; /* Bigger size */
+    height: 40px;
+    left: 50%;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+/* Leftward heart */
+.floating-heart.left {
+    animation: floatLeft 1.2s ease-in forwards;
+}
+
+/* Straight-up heart */
+.floating-heart.up {
+    animation: floatUp 1.2s ease-in forwards;
+}
+
+/* Rightward heart */
+.floating-heart.right {
+    animation: floatRight 1.2s ease-in forwards;
+}
+
+/* Accelerating floating animations */
+@keyframes floatLeft {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1) rotate(-30deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-120px) translateY(-120px) scale(0.8) rotate(-30deg);
+        opacity: 0;
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) translateY(-150px) scale(0.8) rotate(0deg);
+        opacity: 0;
+    }
+}
+
+@keyframes floatRight {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1) rotate(30deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(120px) translateY(-120px) scale(0.8) rotate(30deg);
+        opacity: 0;
+    }
+}

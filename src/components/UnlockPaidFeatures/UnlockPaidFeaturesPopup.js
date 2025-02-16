@@ -1,9 +1,10 @@
 import React from "react";
 import { XMarkIcon, FireIcon } from "@heroicons/react/24/outline";
-import "./UnlockPremiumFeaturesPopup.css";
+import "./UnlockPaidFeaturesPopup.css";
+import {initiatePurchase} from "../../Menu/stripe/StripeService";
 
-const UnlockPaidFeaturesPopup = ({onClose}) => {
-    return (
+const UnlockPaidFeaturesPopup = ({onClose, isShowPopup}) => {
+    return isShowPopup && (
         <div className="popup-overlay">
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <XMarkIcon className="close-icon" onClick={onClose} />
@@ -39,7 +40,7 @@ const UnlockPaidFeaturesPopup = ({onClose}) => {
                     </div>
                 </div>
 
-                <button className="start-button">Start Now!</button>
+                <button className="start-button" onClick={initiatePurchase}>Start Now!</button>
                 <div className="legal-links">
                     <span>Terms of use</span> | <span>Privacy Policy</span>
                 </div>
