@@ -84,7 +84,7 @@ export const QuestionsDeck = ({ categoryFilters }) => {
         return topCardIndex;
     };
 
-    const isBringBackLastCardDisabled = lastGoneIndex === null;
+    const isBringBackLastCardDisabled = lastGoneIndex === null || lastGoneIndex === cardsContent.length - 1;
 
     return <div className={"question-deck-container"}>
         <Deck ref={deckRef} onGone={onGone} currentQuestions={currentQuestions} cardsContent={cardsContent}/>

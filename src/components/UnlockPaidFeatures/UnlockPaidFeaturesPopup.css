@@ -1,15 +1,65 @@
-/* Modal Content */
-.modal-content {
-    padding: 20px;
-    text-align: center;
+/* Full-screen modal container */
+.unlock-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    position: relative;
+    z-index: 9999;
+}
+
+/* Overlay */
+.unlock-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal - Fullscreen on Mobile */
+.unlock-modal {
+    background: linear-gradient(
+            130deg,
+            #2a0a14, /* Softer deep red-wine base */
+            #a33850, /* Muted crimson */
+            #c87c3c  /* Warmer, toned-down amber */
+    );
+    width: 100%;
+    height: 100vh; /* Ensures full screen on mobile */
+    max-width: 100%;
+    padding: 20px;
+    text-align: center;
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border-radius: 0; /* Removes borders for fullscreen */
+}
+
+/* iOS Safari fix */
+@supports (-webkit-touch-callout: none) {
+    .unlock-modal {
+        height: 100dvh; /* Uses dynamic viewport height to prevent cutting */
+    }
+}
+
+/* Desktop Fixes */
+@media (min-width: 768px) {
+    .unlock-modal {
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+        max-height: 90vh;
+        border-radius: 20px;
+        padding: 30px;
+    }
 }
 
 /* Close Button */
-.close-icon {
+.unlock-close-icon {
     width: 28px;
     height: 28px;
     color: white;
@@ -19,105 +69,97 @@
     cursor: pointer;
 }
 
-/* Header Section */
-.modal-header {
+/* Header */
+.unlock-header {
     margin-top: 20px;
 }
 
-.modal-flame {
-    width: 60px;
+.unlock-flame {
+    width: 50px;
     margin-bottom: 10px;
 }
 
-.modal-title {
-    font-size: 24px;
+.unlock-title {
+    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 10px;
+    text-transform: uppercase;
+    line-height: 1.3;
+    margin-bottom: 5px;
 }
 
-/* Feature List */
-.feature-list {
+.unlock-subtitle {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+/* Features */
+.unlock-features {
     list-style: none;
     padding: 0;
     font-size: 14px;
     margin-bottom: 20px;
-}
-
-.feature-list li {
-    margin: 5px 0;
-}
-
-/* Pricing Section */
-.pricing-section {
+    text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin: 15px 0;
+    align-items: center;
 }
 
-/* Free Trial Box */
-.free-trial {
-    background: red;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
+.unlock-features li {
+    margin: 5px 0;
+    width: 90%;
 }
 
-.free-label {
-    background: white;
-    color: red;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-bottom: 5px;
+/* Pricing */
+.unlock-pricing {
 }
 
-.free-price {
-    font-size: 22px;
+.unlock-price {
+    font-size: 16px;
     font-weight: bold;
 }
 
-/* Pricing Options */
-.pricing-option {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.pricing-option strong {
-    font-size: 18px;
-}
-
-/* Start Button */
-.start-button {
-    background: orange;
-    padding: 12px;
+/* Unlock Now Button */
+.unlock-button {
+    background: linear-gradient(135deg, #FF3C4A, #FFA500); /* Stronger red and orange */
+    padding: 14px;
     width: 100%;
     border-radius: 8px;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    margin-top: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(255, 69, 0, 0.4);
+    border: none;
+}
+
+.unlock-button:hover {
+    background: linear-gradient(135deg, #E6323F, #FF8700); /* Darker red and deeper orange */
+}
+
+/* Restore Purchases */
+.unlock-restore {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-bottom: 5px;
     cursor: pointer;
 }
 
-.start-button:hover {
-    background: #ff4500;
+.unlock-restore:hover {
+    text-decoration: underline;
 }
 
 /* Legal Links */
-.legal-links {
+.unlock-legal {
     font-size: 12px;
     opacity: 0.7;
-    margin-top: 5px;
 }
 
-.legal-links span {
+.unlock-legal span {
     cursor: pointer;
 }
 
-.legal-links span:hover {
+.unlock-legal span:hover {
     text-decoration: underline;
 }

@@ -28,6 +28,7 @@ background: linear-gradient(
   padding: 16px;
   margin-bottom: 20px;
   color: white;
+  cursor: pointer;
 }
 
 .promo-text h2 {
@@ -53,6 +54,7 @@ background: linear-gradient(
   border-radius: 12px;
   cursor: pointer;
   transition: background 0.3s ease;
+  font-family: "Poppins", "Nunito Sans", serif;
 }
 
 .not-paid-menu-item {
@@ -175,7 +177,7 @@ background: linear-gradient(
 }
 
 .menu-icon:hover .line {
-  background-color: #1a060d;
+  background-color: antiquewhite;
 }
 
 /* Styling for the 'Language' popover button */

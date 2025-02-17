@@ -102,8 +102,8 @@ function MenuPage({
             {!isPaid && (
               <div className="promo-card" onClick={() => showPopup()}>
                 <div className="promo-text">
-                  <h2>Play 150 cards, see history, save favorite questions & more!</h2>
-                  <p>Start now!</p>
+                  <h2>{t('menu.promoCardText')}</h2>
+                  <p>{t('menu.startNow')}</p>
                 </div>
               </div>
             )}

@@ -8,6 +8,12 @@
     transform: translateY(20%);
 }
 
+@media (max-width: 768px) {
+    .questions-deck-actions-container {
+        bottom: 10%;
+    }
+}
+
 .question-deck-container {
     width: 100%;
     height: 100%;

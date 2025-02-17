@@ -10,6 +10,8 @@ const resources = {
         favorites: "Favorites",
         categoryChange: "Category Change",
         about: "About",
+        promoCardText: "Play 150 cards, see history, save favorite questions & more!",
+        startNow: "Start Now!"
       },
 
       categories: {
@@ -141,13 +143,15 @@ const resources = {
         favorites: "Ulubione",
         categoryChange: "Zmiana kategorii",
         about: "O nas",
+        promoCardText: "Graj 150 kartami, zobacz historię, zapisz ulubione pytania i więcej!",
+        startNow: "Zacznij teraz!"
       },
       categories: {
-        questionsKnowMeBetter: "Know Me Better - PL",
-        questionsRomanticSparks: "Romantic Sparks - PL",
-        questionsVisionValues: "Vision&Values - PL",
-        questionsTeamUs: "Team Us - PL",
-        questionsReflectGrow: "Reflect Growth - PL",
+        questionsKnowMeBetter: "Poznaj mnie lepiej",
+        questionsRomanticSparks: "Romantyczne Iskry",
+        questionsVisionValues: "Wizja i Wartości",
+        questionsTeamUs: "My jako Zespół",
+        questionsReflectGrow: "Refleksja i Rozwój"
       },
       questions: {
         questionsKnowMeBetter: [
@@ -271,13 +275,15 @@ const resources = {
         favorites: "Улюблене",
         categoryChange: "Зміна категорії",
         about: "Про нас",
+        promoCardText: "Грай 150 картами, переглядай історію, зберігай улюблені запитання та багато іншого!",
+        startNow: "Почни зараз!"
       },
       categories: {
-        questionsKnowMeBetter: "Know Me Better - UA",
-        questionsRomanticSparks: "Romantic Sparks - UA",
-        questionsVisionValues: "Vision&Values - UA",
-        questionsTeamUs: "Team Us - UA",
-        questionsReflectGrow: "Reflect Growth - UA",
+        questionsKnowMeBetter: "Про мене",
+        questionsRomanticSparks: "Романтичні іскри",
+        questionsVisionValues: "Бачення та цінності",
+        questionsTeamUs: "Ми як команда",
+        questionsReflectGrow: "Рефлексія та розвиток"
       },
       questions: {
         questionsKnowMeBetter: [
