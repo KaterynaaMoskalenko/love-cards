@@ -133,6 +133,22 @@ const resources = {
           "How do you feel about the way we’ve created a safe space for each other?",
         ],
       },
+      unlockPaidFeatures: {
+        title: "DEEP QUESTIONS & COUPLE CONVERSATIONS",
+        subtitle: "Unlock 150 meaningful questions & customize your experience.",
+        features: {
+          questions: "150 Questions (Free version: 20)",
+          favorites: "Like questions & view favorites",
+          history: "View history of played questions",
+          categories: "Select & filter question categories",
+          oneTimePayment: "One-time payment – No subscriptions!"
+        },
+        price: "Unlock all features for $10",
+        unlockNow: "START NOW",
+        restorePurchases: "Restore previous purchases",
+        terms: "Terms of use",
+        privacy: "Privacy Policy"
+      },
     },
   },
   pl: {
@@ -265,6 +281,22 @@ const resources = {
           "Jak czujesz się w związku z tym, jak stworzyliśmy bezpieczną przestrzeń dla siebie nawzajem?",
         ],
       },
+      unlockPaidFeatures: {
+        title: "GŁĘBOKIE PYTANIA & ROZMOWY DLA PAR",
+        subtitle: "Odblokuj 150 wartościowych pytań i dostosuj swoje doświadczenie.",
+        features: {
+          questions: "150 pytań (wersja darmowa: 20)",
+          favorites: "Polub pytania i przeglądaj ulubione",
+          history: "Zobacz historię zadanych pytań",
+          categories: "Wybieraj i filtruj kategorie pytań",
+          oneTimePayment: "Jednorazowa opłata – Bez subskrypcji!"
+        },
+        price: "Odblokuj wszystkie funkcje za 10$",
+        unlockNow: "ZACZNIJ TERAZ",
+        restorePurchases: "Przywróć poprzednie zakupy",
+        terms: "Regulamin",
+        privacy: "Polityka prywatności"
+      },
     },
   },
   ua: {
@@ -396,6 +428,22 @@ const resources = {
           "Яким чином ми можемо продовжувати зміцнюватися як партнери?",
           "Як ти відчуваєш, коли ми створили безпечний простір один для одного?",
         ],
+      },
+      unlockPaidFeatures: {
+        title: "ГЛИБОКІ ЗАПИТАННЯ & РОЗМОВИ ДЛЯ ПАР",
+        subtitle: "Розблокуйте 150 значущих запитань і налаштуйте свій досвід.",
+        features: {
+          questions: "150 запитань (безкоштовна версія: 20)",
+          favorites: "Вподобайте запитання та переглядайте улюблені",
+          history: "Переглядайте історію пройдених запитань",
+          categories: "Вибирайте та фільтруйте категорії запитань",
+          oneTimePayment: "Разовий платіж – Без підписок!"
+        },
+        price: "Розблокуйте всі функції за 10$",
+        unlockNow: "ПОЧАТИ ЗАРАЗ",
+        restorePurchases: "Відновити попередні покупки",
+        terms: "Умови використання",
+        privacy: "Політика конфіденційності"
       },
     },
   },
