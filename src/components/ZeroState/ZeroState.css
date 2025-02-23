@@ -1,92 +1,93 @@
 /* Zero State Container */
-.zero-state {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
+.zero-state-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 24px;
+    border-radius: 16px;
     text-align: center;
-    padding: 20px;
+    animation: moveUp 0.5s ease;
+    color: white;
 }
 
-/* Inner Content */
-.zero-state-content {
-    max-width: 300px;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Icons */
+/* Icon */
 .zero-state-icon {
     display: flex;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .zero-state-icon svg {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     stroke: #ff6a88;
     fill: none;
 }
 
-/* Heading */
-h3 {
+/* Content */
+.zero-state-content h3 {
     font-size: 20px;
+    margin: 0 0 10px;
     font-weight: bold;
-    color: white;
-    margin-bottom: 8px;
 }
 
-/* Description */
-p {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 20px;
-}
-
-/* Call-to-Action Button */
-.cta-button {
-    background: linear-gradient(135deg, #5C3A35, #ff3e6b);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
+.zero-state-content p {
     font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    opacity: 0.8;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Button */
+.zero-state-button {
+    background: linear-gradient(135deg, #ff5f6d, #ffc371);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.cta-button:hover {
-    background: linear-gradient(135deg, #ff3e6b, #ff2e00);
-}
-
-/* Fade In Animation */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
+.zero-state-button:hover {
+    background: linear-gradient(135deg, #e64a58, #ffb347);
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
-    .zero-state {
-        height: 70vh;
+    .zero-state-container {
+        width: 100%;
+        padding: 16px;
     }
 
     .zero-state-icon svg {
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
     }
 
-    h3 {
+    .zero-state-content h3 {
         font-size: 18px;
     }
 
-    p {
-        font-size: 13px;
+    .zero-state-content p {
+        font-size: 16px;
     }
 
-    .cta-button {
-        font-size: 14px;
-        padding: 8px 16px;
+    .zero-state-button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+/* Animation */
+@keyframes moveUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
 }

@@ -121,7 +121,7 @@
 
 /* Unlock Now Button */
 .unlock-button {
-    background: linear-gradient(135deg, #FF3C4A, #FFA500); /* Stronger red and orange */
+    background: linear-gradient(135deg, #ff5f6d, #ffc371); /* Stronger red and orange */
     padding: 14px;
     width: 100%;
     border-radius: 8px;
@@ -135,7 +135,7 @@
 }
 
 .unlock-button:hover {
-    background: linear-gradient(135deg, #E6323F, #FF8700); /* Darker red and deeper orange */
+    background: linear-gradient(135deg, #e64a58, #ffb347); /* Darker red and deeper orange */
 }
 
 /* Restore Purchases */

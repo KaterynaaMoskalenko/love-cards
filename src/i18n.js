@@ -149,6 +149,34 @@ const resources = {
         terms: "Terms of use",
         privacy: "Privacy Policy"
       },
+      paymentSuccess: {
+        title: "Success! You're In! 🎉",
+        subtitle: "Your premium access is now active!",
+        enjoy: "Start exploring the best cards and create new memories.",
+        specialMoments: "We hope you enjoy every moment together!",
+        startNow: "Start Playing Now"
+      },
+      zeroState: {
+        history: {
+          iconLabel: "Clock icon representing history",
+          title: "Your journey starts here!",
+          description: "Answered questions will be saved here. Start your journey now.",
+          button: "Start Session"
+        },
+        favorites: {
+          iconLabel: "Broken heart icon representing empty favorites",
+          title: "No favorites yet",
+          description: "Tap the ❤️ on questions to save them here.",
+          button: "Browse Questions"
+        }
+      },
+      paymentCancelled: {
+        title: "Payment Cancelled ❌",
+        subtitle: "It looks like the payment process was interrupted.",
+        message: "Don't worry! You can try again or return to the app.",
+        retryButton: "Retry Payment",
+        backButton: "Back to App"
+      }
     },
   },
   pl: {
@@ -297,6 +325,34 @@ const resources = {
         terms: "Regulamin",
         privacy: "Polityka prywatności"
       },
+      paymentSuccess: {
+        title: "Sukces! Jesteś w grze! 🎉",
+        subtitle: "Twój dostęp premium jest teraz aktywny!",
+        enjoy: "Rozpocznij odkrywanie najlepszych kart i twórz nowe wspomnienia.",
+        specialMoments: "Mamy nadzieję, że każdy moment będzie wyjątkowy!",
+        startNow: "Zacznij grać teraz"
+      },
+      zeroState: {
+        history: {
+          iconLabel: "Ikona zegara oznaczająca historię",
+          title: "Twoja podróż zaczyna się tutaj!",
+          description: "Odpowiedzi na pytania będą tu zapisywane. Zacznij teraz.",
+          button: "Rozpocznij sesję"
+        },
+        favorites: {
+          iconLabel: "Ikona złamanego serca oznaczająca brak ulubionych",
+          title: "Brak ulubionych",
+          description: "Stuknij ❤️ przy pytaniach, aby zapisać je tutaj.",
+          button: "Przeglądaj pytania"
+        }
+      },
+      paymentCancelled: {
+        title: "Płatność anulowana ❌",
+        subtitle: "Wygląda na to, że proces płatności został przerwany.",
+        message: "Nie martw się! Możesz spróbować ponownie lub wrócić do aplikacji.",
+        retryButton: "Spróbuj ponownie",
+        backButton: "Powrót do aplikacji"
+      }
     },
   },
   ua: {
@@ -445,6 +501,34 @@ const resources = {
         terms: "Умови використання",
         privacy: "Політика конфіденційності"
       },
+      paymentSuccess: {
+        title: "Успіх! Ви в грі! 🎉",
+        subtitle: "Ваш преміум доступ тепер активний!",
+        enjoy: "Почніть досліджувати найкращі картки та створювати нові спогади.",
+        specialMoments: "Сподіваємось, кожен момент буде особливим!",
+        startNow: "Почати гру зараз"
+      },
+      zeroState: {
+        history: {
+          iconLabel: "Іконка годинника, що представляє історію",
+          title: "Ваша подорож починається тут!",
+          description: "Відповіді на запитання зберігатимуться тут. Почніть зараз.",
+          button: "Почати сесію"
+        },
+        favorites: {
+          iconLabel: "Іконка розбитого серця, що представляє відсутність улюблених",
+          title: "Ще немає улюблених",
+          description: "Натисніть ❤️ біля питань, щоб зберегти їх тут.",
+          button: "Переглянути запитання"
+        }
+      },
+      paymentCancelled: {
+        title: "Платіж скасовано ❌",
+        subtitle: "Здається, процес оплати було перервано.",
+        message: "Не хвилюйтесь! Ви можете спробувати ще раз або повернутися до застосунку.",
+        retryButton: "Спробувати ще раз",
+        backButton: "Повернутися до застосунку"
+      }
     },
   },
 };

@@ -24,6 +24,10 @@ export const storePurchaseSuccess = () => {
   localStorage.setItem("purchaseSuccess", "true");
 };
 
+export const clearPurchaseStatus = () => {
+  localStorage.removeItem("purchaseSuccess");
+}
+
 export const getPurchaseStatus = () => {
   return !!localStorage.getItem("purchaseSuccess");
 };

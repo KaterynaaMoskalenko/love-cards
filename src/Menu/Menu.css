@@ -125,6 +125,7 @@ background: linear-gradient(
   animation: moveUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 .popup-content {
+  width: 100%;
   height: 100%;
   overflow-y: scroll;
   display: flex;
