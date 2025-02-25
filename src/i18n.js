@@ -137,7 +137,7 @@ const resources = {
         title: "DEEP QUESTIONS & COUPLE CONVERSATIONS",
         subtitle: "Unlock 150 meaningful questions & customize your experience.",
         features: {
-          questions: "150 Questions (Free version: 20)",
+          questions: "150 Questions (Free version: 10)",
           favorites: "Like questions & view favorites",
           history: "View history of played questions",
           categories: "Select & filter question categories",
@@ -176,7 +176,32 @@ const resources = {
         message: "Don't worry! You can try again or return to the app.",
         retryButton: "Retry Payment",
         backButton: "Back to App"
-      }
+      },
+      onboarding: {
+        howToPlayTitle1: "Tap, Swipe, Like!",
+        howToPlaySubtitle1:
+            "• Tap to reveal the question.\n" +
+            "• Swipe to go next.\n" +
+            "• Like to save for later.",
+        howToPlayTitle2: "Focus Your Experience",
+        howToPlaySubtitle2:
+            "• Each card has a category.\n" +
+            "• Filter by category.\n" +
+            "• See questions that fit.",
+        howToPlayTitle3: "Make It Your Moment",
+        howToPlaySubtitle3:
+            "• Read the question out loud.\n" +
+            "• Let your partner answer first.\n"+
+            "• Get comfy and enjoy the moment."
+      },
+      freeFeatureOverScreen: {
+        header: "You've unlocked 10 of 150 cards!",
+        subtitle: "Don't stop here – there's so much more to explore together.",
+        pricing: "Only $10 for Lifetime Access!",
+        purchaseButton: "Unlock Premium Now",
+        termsOfService: "Terms of Service",
+        privacyPolicy: "Privacy Policy"
+      },
     },
   },
   pl: {
@@ -313,7 +338,7 @@ const resources = {
         title: "GŁĘBOKIE PYTANIA & ROZMOWY DLA PAR",
         subtitle: "Odblokuj 150 wartościowych pytań i dostosuj swoje doświadczenie.",
         features: {
-          questions: "150 pytań (wersja darmowa: 20)",
+          questions: "150 pytań (wersja darmowa: 10)",
           favorites: "Polub pytania i przeglądaj ulubione",
           history: "Zobacz historię zadanych pytań",
           categories: "Wybieraj i filtruj kategorie pytań",
@@ -352,6 +377,31 @@ const resources = {
         message: "Nie martw się! Możesz spróbować ponownie lub wrócić do aplikacji.",
         retryButton: "Spróbuj ponownie",
         backButton: "Powrót do aplikacji"
+      },
+      onboarding: {
+        howToPlayTitle1: "Dotknij, Przesuń, Polub!",
+        howToPlaySubtitle1:
+            "• Dotknij, aby odkryć pytanie.\n" +
+            "• Przesuń, by przejść dalej.\n" +
+            "• Polub, by zapisać na później.",
+        howToPlayTitle2: "Dopasuj Do Siebie",
+        howToPlaySubtitle2:
+            "• Każda karta ma kategorię.\n" +
+            "• Filtruj według kategorii.\n" +
+            "• Wybierz pytania dla siebie.",
+        howToPlayTitle3: "Stwórz Swój Moment",
+        howToPlaySubtitle3:
+            "• Przeczytaj pytanie na głos.\n" +
+            "• Pozwól partnerowi odpowiedzieć.\n" +
+            "• Usiądź wygodnie i rozmawiaj."
+      },
+      freeFeatureOverScreen: {
+        header: "Odblokowałeś 10 z 150 kart!",
+        subtitle: "Nie zatrzymuj się tutaj – jest jeszcze wiele do odkrycia razem.",
+        pricing: "Tylko 10 USD za dożywotni dostęp!",
+        purchaseButton: "Odblokuj Premium Teraz",
+        termsOfService: "Warunki Usługi",
+        privacyPolicy: "Polityka Prywatności"
       }
     },
   },
@@ -489,7 +539,7 @@ const resources = {
         title: "ГЛИБОКІ ЗАПИТАННЯ & РОЗМОВИ ДЛЯ ПАР",
         subtitle: "Розблокуйте 150 значущих запитань і налаштуйте свій досвід.",
         features: {
-          questions: "150 запитань (безкоштовна версія: 20)",
+          questions: "150 запитань (безкоштовна версія: 10)",
           favorites: "Вподобайте запитання та переглядайте улюблені",
           history: "Переглядайте історію пройдених запитань",
           categories: "Вибирайте та фільтруйте категорії запитань",
@@ -528,6 +578,31 @@ const resources = {
         message: "Не хвилюйтесь! Ви можете спробувати ще раз або повернутися до застосунку.",
         retryButton: "Спробувати ще раз",
         backButton: "Повернутися до застосунку"
+      },
+      onboarding: {
+        howToPlayTitle1: "Торкнись, Проведи, Вподобай!",
+        howToPlaySubtitle1:
+            "• Торкнись, щоб відкрити питання.\n" +
+            "• Проведи, щоб перейти далі.\n" +
+            "• Вподобай, щоб зберегти.",
+        howToPlayTitle2: "Налаштуй Досвід",
+        howToPlaySubtitle2:
+            "• Кожна картка має категорію.\n" +
+            "• Фільтруй за категоріями.\n" +
+            "• Обирай питання під настрій.",
+        howToPlayTitle3: "Створи Свій Момент",
+        howToPlaySubtitle3:
+            "• Прочитай питання вголос.\n" +
+            "• Нехай партнер відповість.\n" +
+            "• Розслабся і спілкуйся."
+      },
+      freeFeatureOverScreen: {
+        header: "Ви розблокували 10 із 150 карток!",
+        subtitle: "Не зупиняйтеся – є ще багато, що можна дослідити разом.",
+        pricing: "Лише 10 доларів за необмежений доступ!",
+        purchaseButton: "Розблокувай Преміум Зараз",
+        termsOfService: "Умови обслуговування",
+        privacyPolicy: "Політика конфіденційності"
       }
     },
   },

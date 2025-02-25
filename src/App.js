@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MenuButton from "./Menu/MenuButton";
 import Header from "./Header/Header";
 import "./App.css";
-import {QuestionsDeck} from "./components/QuestionsDeck/QuestionsDeck";
 import PurchaseSuccessPage from "./Menu/stripe/PurchaseSuccessPage";
 import PurchaseCancelledPage from "./Menu/stripe/PurchaseCancelledPage";
 import { QuestionsHistoryPage } from "./Menu/history/QuestionsHistoryPage";
 import { FavoriteQuestionsPage } from "./Menu/favorites/FavoritesPage";
-import {UnlockPaidFeaturesPopupProvider} from "./components/UnlockPaidFeatures/UnlockPaidFeaturesContext";
+import { UnlockPaidFeaturesPopupProvider } from "./components/UnlockPaidFeatures/UnlockPaidFeaturesContext";
+import OnboardingDeck from "./OnboardingDeck/OnboardingDeck";
 
 const INITIAL_CATEGORY_FILTERS = {
   questionsKnowMeBetter: true,
@@ -36,7 +36,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={<QuestionsDeck categoryFilters={categoryFilters} />}
+              element={<OnboardingDeck categoryFilters={categoryFilters} />}
             />
             <Route path="/history" element={<QuestionsHistoryPage />} />
             <Route path="/favorites" element={<FavoriteQuestionsPage />} />

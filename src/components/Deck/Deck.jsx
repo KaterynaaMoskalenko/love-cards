@@ -3,13 +3,13 @@ import { useSprings, animated, interpolate } from "react-spring";
 import { useGesture } from "react-use-gesture";
 import cardBackImage from "../../assets/images/Card-back.svg";
 
-const to = (i) => ({
+const to = (i, delay = 50) => ({
   x: 0,
   y: i * -2,
   scale: 1,
   rot: 0,
   flip: 180,
-  delay: i * 50,
+  delay: i * delay,
 });
 const from = (i) => ({ x: 0, rot: 0, scale: 1.5, y: -1000, flip: 180 });
 const trans = (r, s) =>
@@ -17,13 +17,13 @@ const trans = (r, s) =>
     r / 10
   }deg) rotateZ(${r}deg) scale(${s})`;
 
-const Deck = forwardRef(({ onGone, cardsContent}, ref) => {
+const Deck = forwardRef(({ onGone, cardsContent, showCardDelay}, ref) => {
   const [gone] = useState(() => new Set()); // Track cards that are flicked out
   const [flipped, setFlipped] = useState(Array(cardsContent.length).fill(true)); // Track flip state for each card
   const [isClickInProgress, setIsClickInProgress] = useState(false);
 
   const [props, set] = useSprings(cardsContent.length, (i) => ({
-    ...to(i),
+    ...to(i, showCardDelay),
     from: from(i),
   }));
 
@@ -43,7 +43,7 @@ const Deck = forwardRef(({ onGone, cardsContent}, ref) => {
       gone.delete(index);
       set((i) => {
         if (index !== i) return;
-        return { ...to(i), flip: flipped[index] ? 180 : 0 }; // Ensure correct flip state
+        return { ...to(i, showCardDelay), flip: flipped[index] ? 180 : 0 }; // Ensure correct flip state
       });
       setFlipped((prev) => {
         const newFlipped = [...prev];
@@ -115,7 +115,7 @@ const Deck = forwardRef(({ onGone, cardsContent}, ref) => {
       });
       if (!down && gone.size === cardsContent.length)
         setTimeout(() => {
-          gone.clear() || set((i) => to(i));
+          gone.clear() || set((i) => to(i, showCardDelay));
           setFlipped(Array(cardsContent.length).fill(true));
         }, 600);
     }

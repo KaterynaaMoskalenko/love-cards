@@ -31,7 +31,7 @@ body {
     gap: 15px;
 }
 
-/* History Card Styling */
+/* History Deck Styling */
 .history-card {
     width: calc(50% - 10px); /* Two columns */
     border-radius: 12px;

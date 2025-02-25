@@ -31,7 +31,7 @@ body {
     gap: 15px;
 }
 
-/* Favorites Card Styling */
+/* Favorites Deck Styling */
 .favorites-card {
     width: calc(50% - 10px); /* Two columns */
     border-radius: 12px;

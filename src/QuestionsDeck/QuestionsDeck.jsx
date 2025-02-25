@@ -1,17 +1,17 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
-import Deck from "../Card/SwipeCard";
+import Deck from "../components/Deck/Deck";
 
-import cardQuestionsKnowMeBetter from "../../assets/images/Card-pink.svg";
-import cardTeamUs from "../../assets/images/Card-orange.svg";
-import cardRomanticSparks from "../../assets/images/Card-red.svg";
-import cardReflectGrow from "../../assets/images/Card-yellow.svg";
-import cardVisionValues from "../../assets/images/Card-brown.svg";
-import { addToHistory } from "../../Menu/history/HistoryService";
+import cardQuestionsKnowMeBetter from "../assets/images/Card-pink.svg";
+import cardTeamUs from "../assets/images/Card-orange.svg";
+import cardRomanticSparks from "../assets/images/Card-red.svg";
+import cardReflectGrow from "../assets/images/Card-yellow.svg";
+import cardVisionValues from "../assets/images/Card-brown.svg";
+import { addToHistory } from "../Menu/history/HistoryService";
 
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 
-import { addToFavorites } from "../../Menu/favorites/FavoritesService";
+import { addToFavorites } from "../Menu/favorites/FavoritesService";
 import LikeButton from "./LikeButton/LikeButton";
 
 import "./QuestionsDeck.css";
@@ -25,7 +25,7 @@ const CATEGORY_IMAGE_MAP = {
     questionsReflectGrow: cardReflectGrow,
 };
 
-export const QuestionsDeck = ({ categoryFilters }) => {
+export const QuestionsDeck = ({ categoryFilters, onDeckFinish }) => {
     const [currentQuestions, setCurrentQuestions] = useState([]);
     const { t, i18n } = useTranslation();
     const deckRef = useRef(null);
@@ -60,15 +60,18 @@ export const QuestionsDeck = ({ categoryFilters }) => {
         return allQuestions;
     };
 
-    // Utility: Select 20 random questions from all categories
+    // Utility: Select 10 random questions from all categories
     const sampleQuestions = (questions) => {
         const shuffledQuestions = shuffleArray(questions);
-        return shuffledQuestions.slice(0, 20);
+        return shuffledQuestions.slice(0, 10);
     };
 
     const onGone = (index) => {
         addToHistory(currentQuestions[index]);
         setLastGoneIndex(index);
+        if (index === 0) {
+            onDeckFinish();
+        }
     }
 
     const cardsContent = currentQuestions.map((question, index) => ({
@@ -87,7 +90,7 @@ export const QuestionsDeck = ({ categoryFilters }) => {
     const isBringBackLastCardDisabled = lastGoneIndex === null || lastGoneIndex === cardsContent.length - 1;
 
     return <div className={"question-deck-container"}>
-        <Deck ref={deckRef} onGone={onGone} currentQuestions={currentQuestions} cardsContent={cardsContent}/>
+        <Deck ref={deckRef} onGone={onGone} cardsContent={cardsContent}/>
         <div className={"questions-deck-actions-container"}>
             <div
                 className={`question-deck-action ${isBringBackLastCardDisabled ? "disabled" : ""}`}

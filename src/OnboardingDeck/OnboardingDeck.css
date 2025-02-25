@@ -1,0 +1,18 @@
+.onboarding-card-container {
+    display: flex;
+    flex-direction: column;
+    white-space: pre-line;
+}
+
+.onboarding-card-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.onboarding-card-subtitle {
+    font-size: 14px;
+    margin-top: 1rem;
+    padding-right: 6px;
+    padding-left: 6px;
+    text-align: start;
+}
