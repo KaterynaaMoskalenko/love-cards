@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/24/outline";
 import "./LikeButton.css";
+import {addToFavorites, getFavoriteQuestions, removeFromFavorites} from "../../Menu/favorites/FavoritesService";
 
-const LikeButton = () => {
+const LikeButton = ({currentQuestion}) => {
     const [liked, setLiked] = useState(false);
     const [floatingHearts, setFloatingHearts] = useState([]);
+
+    useEffect(() => {
+        const favorites = getFavoriteQuestions();
+
+        const isLiked = favorites.find((question) => question.question === currentQuestion.question);
+
+        setLiked(isLiked);
+    }, [currentQuestion]);
 
     const handleLike = () => {
         if (!liked) {
@@ -24,8 +33,11 @@ const LikeButton = () => {
             setTimeout(() => {
                 setFloatingHearts([]);
             }, 1200);
+
+            addToFavorites(currentQuestion);
         } else {
             setLiked(false);
+            removeFromFavorites(currentQuestion);
         }
     };
 

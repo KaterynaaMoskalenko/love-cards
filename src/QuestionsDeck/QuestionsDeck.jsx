@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import Deck from "../components/Deck/Deck";
 
@@ -11,7 +11,6 @@ import { addToHistory } from "../Menu/history/HistoryService";
 
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 
-import { addToFavorites } from "../Menu/favorites/FavoritesService";
 import LikeButton from "./LikeButton/LikeButton";
 
 import "./QuestionsDeck.css";
@@ -25,7 +24,9 @@ const CATEGORY_IMAGE_MAP = {
     questionsReflectGrow: cardReflectGrow,
 };
 
-export const QuestionsDeck = ({ categoryFilters, onDeckFinish }) => {
+const PAGE_SIZE = 20;
+
+export const QuestionsDeck = ({ categoryFilters, onDeckFinish, questionsCount }) => {
     const [currentQuestions, setCurrentQuestions] = useState([]);
     const { t, i18n } = useTranslation();
     const deckRef = useRef(null);
@@ -60,10 +61,10 @@ export const QuestionsDeck = ({ categoryFilters, onDeckFinish }) => {
         return allQuestions;
     };
 
-    // Utility: Select 10 random questions from all categories
+    // Utility: Select random questions from all categories
     const sampleQuestions = (questions) => {
         const shuffledQuestions = shuffleArray(questions);
-        return shuffledQuestions.slice(0, 10);
+        return shuffledQuestions.slice(0, questionsCount);
     };
 
     const onGone = (index) => {
@@ -74,11 +75,15 @@ export const QuestionsDeck = ({ categoryFilters, onDeckFinish }) => {
         }
     }
 
-    const cardsContent = currentQuestions.map((question, index) => ({
+    const cardsContent = useMemo(() => currentQuestions.map((question, index) => ({
         frontContent: question.question,
         backImage: CATEGORY_IMAGE_MAP[question.category],
         index,
-    }));
+    })), [currentQuestions]);
+
+    if (!cardsContent.length) {
+        return null;
+    }
 
     const getTopCardIndex = () => {
         const topCardIndex = lastGoneIndex !== null
@@ -87,29 +92,32 @@ export const QuestionsDeck = ({ categoryFilters, onDeckFinish }) => {
         return topCardIndex;
     };
 
-    const isBringBackLastCardDisabled = lastGoneIndex === null || lastGoneIndex === cardsContent.length - 1;
+    const isBringBackLastCardDisabled = lastGoneIndex === null || lastGoneIndex === cardsContent.length;
+
+    const loadNextCardsContentPage = () => {
+        const endIndex = getTopCardIndex() + 1;
+        const startIndex = Math.max(endIndex - PAGE_SIZE, 0);
+        return cardsContent.slice(startIndex, endIndex);
+    };
+
+    console.log("TOP CARD INDEX", getTopCardIndex());
 
     return <div className={"question-deck-container"}>
-        <Deck ref={deckRef} onGone={onGone} cardsContent={cardsContent}/>
+        <Deck ref={deckRef} onGone={onGone} loadNextCardsContentPage={loadNextCardsContentPage}/>
         <div className={"questions-deck-actions-container"}>
             <div
                 className={`question-deck-action ${isBringBackLastCardDisabled ? "disabled" : ""}`}
                 onClick={() => {
                     deckRef.current.bringBackLastCard();
+                    setLastGoneIndex(lastGoneIndex + 1);
                 }}
             >
                 <div className={"question-deck-action-button"}>
                      <ArrowUturnLeftIcon height={24}/>
                 </div>
             </div>
-            <div
-                onClick={() => {
-                    const topCardIndex = getTopCardIndex();
-                    const topCardQuestion = currentQuestions[topCardIndex];
-                    addToFavorites(topCardQuestion);
-                }}
-            >
-                <LikeButton/>
+            <div>
+                <LikeButton currentQuestion={currentQuestions[getTopCardIndex()]}/>
             </div>
         </div>
     </div>;

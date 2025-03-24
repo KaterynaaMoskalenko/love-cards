@@ -9,7 +9,7 @@ import ZeroState from "../../components/ZeroState/ZeroState";
 export const QuestionsHistoryPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const history = getQuestionHistory();
+  const history = getQuestionHistory().reverse();
 
   if (history.length === 0) {
       return <ZeroState type={"history"} onAction={() => navigate("/")}/>;

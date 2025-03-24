@@ -17,7 +17,8 @@ const trans = (r, s) =>
     r / 10
   }deg) rotateZ(${r}deg) scale(${s})`;
 
-const Deck = forwardRef(({ onGone, cardsContent, showCardDelay}, ref) => {
+const Deck = forwardRef(({ onGone, cardsContent: originalCardsContent, showCardDelay, loadNextCardsContentPage}, ref) => {
+  const [cardsContent, setCardsContent] = useState([]);
   const [gone] = useState(() => new Set()); // Track cards that are flicked out
   const [flipped, setFlipped] = useState(Array(cardsContent.length).fill(true)); // Track flip state for each card
   const [isClickInProgress, setIsClickInProgress] = useState(false);
@@ -29,14 +30,25 @@ const Deck = forwardRef(({ onGone, cardsContent, showCardDelay}, ref) => {
 
   useEffect(() => {
     setFlipped(Array(cardsContent.length).fill(true));
-  }, [cardsContent.length]);
+  }, [cardsContent]);
+
+  useEffect(() => {
+    const initialCardsContent = originalCardsContent ?? loadNextCardsContentPage();
+    setCardsContent(initialCardsContent);
+  }, []);
 
   useImperativeHandle(ref, () => {
     return {
-      bringBackLastCard: () => bringBackCard(getTopCardIndex() + 1),
-      flipTopCard: () => handleClick(getTopCardIndex()),
+      bringBackLastCard: () => {
+        const topIndex = getTopCardIndex();
+        return bringBackCard(topIndex + 1);
+      },
+      flipTopCard: () => {
+        const topIndex = getTopCardIndex();
+        return handleClick(topIndex);
+      },
     };
-  }, []);
+  }, [cardsContent, gone, flipped]); // Include all dependencies
 
   const bringBackCard = (index) => {
     if (gone.has(index)) {
@@ -84,6 +96,7 @@ const Deck = forwardRef(({ onGone, cardsContent, showCardDelay}, ref) => {
     const topCardIndex = gone.size
       ? Math.min(...gone) - 1
       : cardsContent.length - 1;
+    console.log('TOP CARD INDEX', topCardIndex, cardsContent);
     return topCardIndex;
   };
 
@@ -96,7 +109,7 @@ const Deck = forwardRef(({ onGone, cardsContent, showCardDelay}, ref) => {
       const dir = xDir || (xDelta < 0 ? -1 : 1);
       if (!down && trigger) {
         gone.add(index);
-        onGone(index);
+        onGone(cardsContent[index].index);
       }
       set((i) => {
         if (index !== i) return;
@@ -115,8 +128,13 @@ const Deck = forwardRef(({ onGone, cardsContent, showCardDelay}, ref) => {
       });
       if (!down && gone.size === cardsContent.length)
         setTimeout(() => {
-          gone.clear() || set((i) => to(i, showCardDelay));
-          setFlipped(Array(cardsContent.length).fill(true));
+          gone.clear() || set((i) => ({...to(i, showCardDelay), from: from(i)}));
+          if (loadNextCardsContentPage) {
+            const newCardsContent = loadNextCardsContentPage();
+            setCardsContent(newCardsContent);
+          } else {
+            setFlipped(Array(cardsContent.length).fill(true));
+          }
         }, 600);
     }
   );

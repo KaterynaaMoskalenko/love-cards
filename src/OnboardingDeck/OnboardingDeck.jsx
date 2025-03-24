@@ -46,7 +46,7 @@ const OnboardingDeck = ({categoryFilters}) => {
     useEffect(() => {
        setLocalizedOnboardingCards(ONBOARDING_CARDS.map(card => ({
               ...card,
-              frontContent:  getOnboardingCardContent(t, card.index)
+              frontContent: getOnboardingCardContent(t, card.index)
          })));
     }, [t]);
 
@@ -63,7 +63,7 @@ const OnboardingDeck = ({categoryFilters}) => {
     }, []);
 
     const onOnboardingCardGone = (index) => {
-        if (index === 0) {
+        if (index === 3) {
             setTimeout(() => {
                 setIsOnboardingCompleted();
                 setIsOnboarding(false);
@@ -94,7 +94,11 @@ const OnboardingDeck = ({categoryFilters}) => {
         return <FreeFeatureOverScreen/>;
     }
 
-    return <QuestionsDeck categoryFilters={categoryFilters} onDeckFinish={onDeckFinish}/>
+    return <QuestionsDeck
+        categoryFilters={categoryFilters}
+        onDeckFinish={onDeckFinish}
+        questionsCount={isPaid ? 150 : 10}
+    />
 };
 
 export default OnboardingDeck;
