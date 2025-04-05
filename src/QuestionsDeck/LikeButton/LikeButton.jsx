@@ -11,7 +11,7 @@ const LikeButton = ({currentQuestion}) => {
     useEffect(() => {
         const favorites = getFavoriteQuestions();
 
-        const isLiked = favorites.find((question) => question.question === currentQuestion.question);
+        const isLiked = favorites.find((question) => question.question === currentQuestion?.question);
 
         setLiked(isLiked);
     }, [currentQuestion]);
