@@ -1,9 +1,9 @@
 export const initiatePurchase = () => {
   const stripe = window.Stripe(
-    "pk_test_51QifYhBFCACJo8xsfx8LFmF2m8metGxAE6ZBrLPWqYInyFPhdZMfBUhLKDPC4l4Bu9lL7nAjQg8kwLwWCKvGwTkY00hDUUD3pE"
+    "pk_live_51QifYhBFCACJo8xsKRu9qlqHbywfTy6XRfsmoGGVyDqRvlku37Ywf49mIYqfB5vBxKfJdXrRodnkcQkC26f0tCU800XvTC7Bnj"
   );
   stripe.redirectToCheckout({
-    lineItems: [{ price: "price_1QifrMBFCACJo8xsJ6nYhpYm", quantity: 1 }],
+    lineItems: [{ price: "price_1RATsSBFCACJo8xsVXkRbQKl", quantity: 1 }],
     mode: "payment",
     /*
      * Do not rely on the redirect to the successUrl for fulfilling
@@ -13,10 +13,9 @@ export const initiatePurchase = () => {
      * https://docs.stripe.com/payments/checkout/fulfill-orders
      */
     successUrl:
-      window.location.protocol +
-      "//www.twoofuscards.com/purchase-completed-successfully",
+      "https://app.twoofuscards.com/purchase-completed-successfully",
     cancelUrl:
-      window.location.protocol + "//www.twoofuscards.com/purchase-cancelled",
+      "https://app.twoofuscards.com/purchase-cancelled",
   });
 };
 
