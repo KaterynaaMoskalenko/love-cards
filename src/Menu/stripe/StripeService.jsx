@@ -28,5 +28,20 @@ export const clearPurchaseStatus = () => {
 }
 
 export const getPurchaseStatus = () => {
-  return !!localStorage.getItem("purchaseSuccess");
+  return !!localStorage.getItem("purchaseSuccess") || isTrialActive();
 };
+
+export const startTrial = () => {
+  localStorage.setItem("trialStartDate", new Date().toISOString());
+}
+
+export const isTrialActive = () => {
+  const trialStartDate = localStorage.getItem("trialStartDate");
+  if (!trialStartDate) {
+    return false;
+  }
+  const trialStart = new Date(trialStartDate);
+  const now = new Date();
+  const trialDuration = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+  return now - trialStart < trialDuration;
+}

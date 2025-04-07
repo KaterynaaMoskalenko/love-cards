@@ -7,6 +7,7 @@ import PurchaseSuccessPage from "./Menu/stripe/PurchaseSuccessPage";
 import PurchaseCancelledPage from "./Menu/stripe/PurchaseCancelledPage";
 import { QuestionsHistoryPage } from "./Menu/history/QuestionsHistoryPage";
 import { FavoriteQuestionsPage } from "./Menu/favorites/FavoritesPage";
+import StartTrialPage from "./Menu/stripe/StartTrialPage";
 import { UnlockPaidFeaturesPopupProvider } from "./components/UnlockPaidFeatures/UnlockPaidFeaturesContext";
 import OnboardingDeck from "./OnboardingDeck/OnboardingDeck";
 
@@ -47,6 +48,10 @@ function App() {
             <Route
               path="/purchase-cancelled"
               element={<PurchaseCancelledPage />}
+            />
+            <Route
+              path="/trial-started-successfully"
+              element={<StartTrialPage />}
             />
           </Routes>
         </div>

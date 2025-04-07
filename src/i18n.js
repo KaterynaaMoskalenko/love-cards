@@ -156,6 +156,13 @@ const resources = {
         specialMoments: "We hope you enjoy every moment together!",
         startNow: "Start Playing Now"
       },
+      startTrial: {
+        title: "Your 7-Day Trial Has Started! 🚀",
+        subtitle: "You've unlocked full access to premium features.",
+        enjoy: "Dive into all 150 cards and discover new sides of each other.",
+        specialMoments: "Make the most of these 7 days—every question counts!",
+        startNow: "Explore Now"
+      },
       zeroState: {
         history: {
           iconLabel: "Clock icon representing history",
@@ -357,6 +364,13 @@ const resources = {
         specialMoments: "Mamy nadzieję, że każdy moment będzie wyjątkowy!",
         startNow: "Zacznij grać teraz"
       },
+      startTrial: {
+        title: "Twój 7-dniowy okres próbny się rozpoczął! 🚀",
+        subtitle: "Masz pełny dostęp do funkcji premium.",
+        enjoy: "Zanurz się w 150 kartach i odkrywaj nowe strony swojej drugiej połówki.",
+        specialMoments: "Wykorzystaj te 7 dni jak najlepiej — każde pytanie się liczy!",
+        startNow: "Zacznij grać teraz"
+      },
       zeroState: {
         history: {
           iconLabel: "Ikona zegara oznaczająca historię",
@@ -556,6 +570,13 @@ const resources = {
         subtitle: "Ваш преміум доступ тепер активний!",
         enjoy: "Почніть досліджувати найкращі картки та створювати нові спогади.",
         specialMoments: "Сподіваємось, кожен момент буде особливим!",
+        startNow: "Почати гру зараз"
+      },
+      startTrial: {
+        title: "Ваш 7-денний пробний період розпочато! 🚀",
+        subtitle: "Ви отримали повний доступ до преміум функцій.",
+        enjoy: "Зануртесь у всі 150 карток і відкрийте нові сторони одне одного.",
+        specialMoments: "Використайте ці 7 днів на повну — кожне питання має значення!",
         startNow: "Почати гру зараз"
       },
       zeroState: {
