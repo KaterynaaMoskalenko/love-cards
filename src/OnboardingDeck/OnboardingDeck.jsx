@@ -10,6 +10,7 @@ import {getIsOnboardingCompleted, setIsOnboardingCompleted} from "./OnboardingSe
 import "./OnboardingDeck.css";
 import {getPurchaseStatus} from "../Menu/stripe/StripeService";
 import FreeFeatureOverScreen from "../components/FreeFeatureOverScreen/FreeFeatureOverScreen";
+import {logFreeDeckCompleted, logOnboardingCompleted} from "../analytics/analytics";
 
 const ONBOARDING_CARDS = [
     {
@@ -51,6 +52,12 @@ const OnboardingDeck = ({categoryFilters}) => {
     }, [t]);
 
     useEffect(() => {
+        if (isDeckFinished && !isPaid) {
+            logFreeDeckCompleted();
+        }
+    }, [isDeckFinished, isPaid])
+
+    useEffect(() => {
         const onboardingCompleted = getIsOnboardingCompleted();
         if (!onboardingCompleted) {
             setIsOnboarding(true);
@@ -66,6 +73,7 @@ const OnboardingDeck = ({categoryFilters}) => {
         if (index === 3) {
             setTimeout(() => {
                 setIsOnboardingCompleted();
+                logOnboardingCompleted();
                 setIsOnboarding(false);
             }, 300);
         }

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import MenuButton from "./Menu/MenuButton";
 import Header from "./Header/Header";
 import "./App.css";
@@ -10,6 +10,9 @@ import { FavoriteQuestionsPage } from "./Menu/favorites/FavoritesPage";
 import StartTrialPage from "./Menu/stripe/StartTrialPage";
 import { UnlockPaidFeaturesPopupProvider } from "./components/UnlockPaidFeatures/UnlockPaidFeaturesContext";
 import OnboardingDeck from "./OnboardingDeck/OnboardingDeck";
+import {initGA} from "./analytics/analytics";
+import {PageViewTracker} from "./analytics/PageViewTracker";
+import QuizContainer from "./components/Quiz/QuizContainer";
 
 const INITIAL_CATEGORY_FILTERS = {
   questionsKnowMeBetter: true,
@@ -24,8 +27,13 @@ function App() {
     INITIAL_CATEGORY_FILTERS
   );
 
+  useEffect(() => {
+    initGA(); // only runs once
+  }, []);
+
   return (
     <Router>
+      <PageViewTracker />
       <UnlockPaidFeaturesPopupProvider>
         <div className="App">
           <Header />
@@ -53,6 +61,7 @@ function App() {
               path="/trial-started-successfully"
               element={<StartTrialPage />}
             />
+            <Route path="/quiz/love-language" element={<QuizContainer />} />
           </Routes>
         </div>
       </UnlockPaidFeaturesPopupProvider>

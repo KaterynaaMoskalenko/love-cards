@@ -3,6 +3,7 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/24/outline";
 import "./LikeButton.css";
 import {addToFavorites, getFavoriteQuestions, removeFromFavorites} from "../../Menu/favorites/FavoritesService";
+import {logCardLiked} from "../../analytics/analytics";
 
 const LikeButton = ({currentQuestion}) => {
     const [liked, setLiked] = useState(false);
@@ -35,6 +36,7 @@ const LikeButton = ({currentQuestion}) => {
             }, 1200);
 
             addToFavorites(currentQuestion);
+            logCardLiked(currentQuestion);
         } else {
             setLiked(false);
             removeFromFavorites(currentQuestion);

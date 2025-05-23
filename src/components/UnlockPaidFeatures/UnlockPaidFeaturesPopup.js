@@ -3,9 +3,15 @@ import { XMarkIcon, FireIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 import "./UnlockPaidFeaturesPopup.css";
 import { initiatePurchase } from "../../Menu/stripe/StripeService";
+import {logPurchaseButtonClicked} from "../../analytics/analytics";
 
 const UnlockPaidFeaturesPopup = ({ onClose, isShowPopup }) => {
     const { t } = useTranslation();
+
+    const handlePayButtonClick = () => {
+        logPurchaseButtonClicked("unlockPaidFeaturesModal");
+        initiatePurchase();
+    }
 
     return isShowPopup && (
         <div className="unlock-popup">
@@ -35,7 +41,7 @@ const UnlockPaidFeaturesPopup = ({ onClose, isShowPopup }) => {
                     </div>
 
                     {/* Purchase Button */}
-                    <button className="unlock-button" onClick={initiatePurchase}>{t("unlockPaidFeatures.unlockNow")}</button>
+                    <button className="unlock-button" onClick={handlePayButtonClick}>{t("unlockPaidFeatures.unlockNow")}</button>
 
                     {/* Restore Purchases & Legal Links */}
                     <div className="unlock-restore">{t("unlockPaidFeatures.restorePurchases")}</div>

@@ -56,7 +56,7 @@ export const FavoriteQuestionsPage = () => {
       <h2 className="favorites-title">Favorites</h2>
       <div className="favorites-grid">
         {favoriteQuestions.map((item) => (
-          <div key={item.id} className={`favorites-card ${item.category}`}>
+          <div key={item.question} className={`favorites-card ${item.category}`}>
             <div className="favorites-content">
               <p className="favorites-category">
                 {t(`categories.${item.category}`)}

@@ -14,6 +14,7 @@ import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 import LikeButton from "./LikeButton/LikeButton";
 
 import "./QuestionsDeck.css";
+import {logCardSwiped} from "../analytics/analytics";
 
 // const cards = [loveCardImage];
 const CATEGORY_IMAGE_MAP = {
@@ -68,6 +69,7 @@ export const QuestionsDeck = ({ categoryFilters, onDeckFinish, questionsCount })
     };
 
     const onGone = (index) => {
+        logCardSwiped(currentQuestions[index]);
         addToHistory(currentQuestions[index]);
         setLastGoneIndex(index);
         if (index === 0) {

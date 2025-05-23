@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 import "./PurchaseSuccessPage.css";
+import {logPurchaseCompleted} from "../../analytics/analytics";
 
 const PurchaseSuccessPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
     useEffect(() => {
+        logPurchaseCompleted();
         storePurchaseSuccess();
     }, []);
 

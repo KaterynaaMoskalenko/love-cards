@@ -4,6 +4,7 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 import "./PurchaseCancelledPage.css";
 import {clearPurchaseStatus, initiatePurchase} from "./StripeService";
+import {logPurchaseCancelled} from "../../analytics/analytics";
 
 const PurchaseCancelledPage = () => {
     const { t } = useTranslation();
@@ -11,6 +12,7 @@ const PurchaseCancelledPage = () => {
 
     useEffect(() => {
         clearPurchaseStatus();
+        logPurchaseCancelled();
     }, []);
 
     const handleBackToApp = () => {

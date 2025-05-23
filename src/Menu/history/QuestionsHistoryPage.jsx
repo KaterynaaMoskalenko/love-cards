@@ -20,7 +20,7 @@ export const QuestionsHistoryPage = () => {
             <h2 className="history-title">History</h2>
             <div className="history-grid">
                 {history.map((item) => (
-                    <div key={item.id} className={`history-card ${item.category}`}>
+                    <div key={item.question} className={`history-card ${item.category}`}>
                         <p className="history-category">{t(`categories.${item.category}`)}</p>
                         <p className="history-question">{item.question}</p>
                     </div>

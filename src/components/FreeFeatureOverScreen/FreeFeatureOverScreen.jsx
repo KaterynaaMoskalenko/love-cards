@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./FreeFeatureOverScreen.css";
 import { initiatePurchase } from "../../Menu/stripe/StripeService";
+import {logPurchaseButtonClicked} from "../../analytics/analytics";
 
 const FreeFeatureOverScreen = () => {
     const { t } = useTranslation();
@@ -11,6 +12,11 @@ const FreeFeatureOverScreen = () => {
         const timer = setTimeout(() => setIsVisible(true), 100);
         return () => clearTimeout(timer);
     }, []);
+
+    const onPayClick = () => {
+      logPurchaseButtonClicked("freeFeatureOverScreen");
+      initiatePurchase();
+    }
 
     return (
         <div className={`free-feature-over-modal ${isVisible ? "fade-in" : ""}`} onClick={(e) => e.stopPropagation()}>
@@ -27,7 +33,7 @@ const FreeFeatureOverScreen = () => {
             </div>
 
             {/* Purchase Button */}
-            <button className="free-feature-over-button" onClick={initiatePurchase}>
+            <button className="free-feature-over-button" onClick={onPayClick}>
                 {t("freeFeatureOverScreen.purchaseButton")}
             </button>
 

@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import {
   ArchiveBoxIcon,
-  ArrowUturnLeftIcon,
   HeartIcon,
   InformationCircleIcon, TagIcon,
 } from "@heroicons/react/20/solid";
@@ -16,6 +15,7 @@ import CategoryChangeMenuItem from "./menuPage/CategoryChangeMenuItem";
 import NotPaidMenuItem from "./menuPage/NotPaidMenuItem";
 import {useUnlockPaidFeaturesPopup} from "../components/UnlockPaidFeatures/UnlockPaidFeaturesContext";
 import {XMarkIcon} from "@heroicons/react/24/outline";
+import {logPurchaseModalOpen} from "../analytics/analytics";
 
 function MenuPage({
   closePopup,
@@ -28,6 +28,11 @@ function MenuPage({
 
   const navigate = useNavigate();
   const { showPopup } = useUnlockPaidFeaturesPopup();
+
+  const handlePaidFeaturesClick = () => {
+    logPurchaseModalOpen("menuPromo")
+    showPopup();
+  }
 
   const isPaid = getPurchaseStatus();
 
@@ -100,7 +105,7 @@ function MenuPage({
             />
 
             {!isPaid && (
-              <div className="promo-card" onClick={() => showPopup()}>
+              <div className="promo-card" onClick={handlePaidFeaturesClick}>
                 <div className="promo-text">
                   <h2>{t('menu.promoCardText')}</h2>
                   <p>{t('menu.startNow')}</p>
