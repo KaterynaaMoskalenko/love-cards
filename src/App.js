@@ -13,6 +13,9 @@ import OnboardingDeck from "./OnboardingDeck/OnboardingDeck";
 import {initGA} from "./analytics/analytics";
 import {PageViewTracker} from "./analytics/PageViewTracker";
 import QuizContainer from "./components/Quiz/QuizContainer";
+import { loveLanguageQuiz } from "./components/Quiz/quizData";
+import { attachmentStyleQuiz } from "./components/Quiz/attachmentStyleQuiz";
+import conflictResolutionQuiz from './components/Quiz/conflictResolutionQuiz';
 
 const INITIAL_CATEGORY_FILTERS = {
   questionsKnowMeBetter: true,
@@ -61,7 +64,18 @@ function App() {
               path="/trial-started-successfully"
               element={<StartTrialPage />}
             />
-            <Route path="/quiz/love-language" element={<QuizContainer />} />
+            <Route 
+              path="/quiz/love-language" 
+              element={<QuizContainer quizData={loveLanguageQuiz} />} 
+            />
+            <Route 
+              path="/quiz/attachment-style" 
+              element={<QuizContainer quizData={attachmentStyleQuiz} />} 
+            />
+            <Route
+              path="/quiz/conflict-resolution"
+              element={<QuizContainer quizData={conflictResolutionQuiz} />}
+            />
           </Routes>
         </div>
       </UnlockPaidFeaturesPopupProvider>

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
-import { loveLanguageQuiz } from "./quizData";
 import "../FreeFeatureOverScreen/FreeFeatureOverScreen.css";
+import html2canvas from 'html2canvas';
+import ResultImageCard from './ResultImageCard';
 
 const ProgressBar = () => {
   const { quizData, currentIndex } = useQuiz();
@@ -23,7 +24,6 @@ const ProgressBar = () => {
           maxWidth: 360,
           margin: "0 auto",
           height: 8,
-          background: "rgba(255,255,255,0.1)",
           borderRadius: 8,
           overflow: "hidden",
         }}
@@ -56,7 +56,7 @@ const SingleSelectList = ({ question, answer, onSelect }) => (
     {question.answers.map((ans) => (
       <button
         key={ans.id}
-        className={`free-feature-over-button`}
+        className={`free-feature-over-button-quiz`}
         style={{
           width: "100%",
           marginBottom: 16,
@@ -94,7 +94,7 @@ const SingleSelectGrid = ({ question, answer, onSelect }) => (
     {question.answers.map((ans) => (
       <button
         key={ans.id}
-        className={`free-feature-over-button`}
+        className={`free-feature-over-button-quiz`}
         style={{
           width: "calc(50% - 16px)",
           minHeight: 120,
@@ -144,7 +144,7 @@ const MultiSelectList = ({ question, answer = [], onSelect }) => (
       return (
         <button
           key={ans.id}
-          className={`free-feature-over-button`}
+          className={`free-feature-over-button-quiz`}
           style={{
             width: "100%",
             marginBottom: 16,
@@ -212,7 +212,7 @@ const MultiSelectGrid = ({ question, answer = [], onSelect }) => (
       return (
         <button
           key={ans.id}
-          className={`free-feature-over-button`}
+          className={`free-feature-over-button-quiz`}
           style={{
             width: "calc(50% - 16px)",
             minHeight: 120,
@@ -272,7 +272,6 @@ const QuizSlide = () => {
           borderRadius: 16,
           padding: 32,
           margin: "24px 0",
-          boxShadow: "0 2px 12px rgba(0,0,0,0.10)",
           width: "100%",
         }}
       >
@@ -383,155 +382,225 @@ const QuizSlide = () => {
   );
 };
 
-const loveLanguageDescriptions = {
-  words: {
-    label: "Words of Affirmation",
-    icon: "💬",
-    description:
-      "You feel most loved when you hear words of encouragement, appreciation, and affection.",
-  },
-  acts: {
-    label: "Acts of Service",
-    icon: "🤲",
-    description:
-      "You feel most loved when your partner helps you with tasks and chores.",
-  },
-  gifts: {
-    label: "Receiving Gifts",
-    icon: "🎁",
-    description: "You feel most loved when you receive thoughtful gifts.",
-  },
-  quality: {
-    label: "Quality Time",
-    icon: "⏰",
-    description: "You feel most loved when you spend meaningful time together.",
-  },
-  touch: {
-    label: "Physical Touch",
-    icon: "🤗",
-    description:
-      "You feel most loved through hugs, kisses, and other forms of physical affection.",
-  },
-};
-
-function calculateLoveLanguageResult(quizData, answers) {
-  // Tally all answer values
-  const tally = {};
-  quizData.questions.forEach((q) => {
-    if (q.type === "single" && answers[q.id]) {
-      const ans = q.answers.find((a) => a.id === answers[q.id]);
-      if (ans && ans.value) {
-        tally[ans.value] = (tally[ans.value] || 0) + 1;
-      }
-    }
-    if (q.type === "multi" && Array.isArray(answers[q.id])) {
-      answers[q.id].forEach((aid) => {
-        const ans = q.answers.find((a) => a.id === aid);
-        if (ans && ans.value) {
-          tally[ans.value] = (tally[ans.value] || 0) + 1;
-        }
-      });
-    }
-  });
-  // Find the love language with the highest count
-  let max = 0;
-  let primary = null;
-  Object.entries(tally).forEach(([key, count]) => {
-    if (count > max) {
-      max = count;
-      primary = key;
-    }
-  });
-  return { primary, tally };
-}
-
-const ResultCard = ({ result, onRestart, descriptions }) => {
+const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => {
   const desc = descriptions[result.primary];
+  const resultCardRef = useRef(null);
+  const imageCardRef = useRef(null);
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+
+  const downloadResultImage = async () => {
+    if (!imageCardRef.current) return;
+
+    setIsGeneratingImage(true);
+
+    try {
+      const canvas = await html2canvas(imageCardRef.current, {
+        scale: 2,
+        backgroundColor: null,
+        useCORS: true,
+        allowTaint: true,
+        width: 540,
+        height: 960,
+        windowWidth: 540,
+        windowHeight: 960,
+      });
+
+      // Generate filename
+      const quizType = quizData.title.toLowerCase().replace(/\s+/g, '-');
+      const primaryStyle = result.primary.toLowerCase().replace(/\s+/g, '-');
+      const filename = `two-of-us-${quizType}-${primaryStyle}.png`;
+
+      if (canShare) {
+        // Mobile: Use Web Share API
+        try {
+          canvas.toBlob(async (blob) => {
+            if (!blob) {
+              throw new Error('Failed to generate image');
+            }
+
+            const file = new File([blob], filename, { type: 'image/png' });
+
+            // Check if the file can be shared
+            if (navigator.canShare({ files: [file] })) {
+              try {
+                await navigator.share({
+                  title: `My ${quizData.title} Result`,
+                  text: `I got ${result.primary}! Take the ${quizData.title} quiz on TwoOfUsCards.com`,
+                  files: [file]
+                });
+                // Share completed successfully
+              } catch (shareError) {
+                // Handle share cancellation vs actual errors
+                if (shareError.name === 'AbortError') {
+                  // User cancelled the share - this is normal behavior, do nothing
+                  return;
+                } else {
+                  // Actual error occurred, fallback to download
+                  console.warn('Share failed, falling back to download:', shareError);
+                  downloadCanvas(canvas, filename);
+                }
+              }
+            } else {
+              // Fallback to download if file sharing not supported
+              downloadCanvas(canvas, filename);
+            }
+          }, 'image/png');
+        } catch (shareError) {
+          console.error('Error preparing share:', shareError);
+          // Fallback to download
+          downloadCanvas(canvas, filename);
+        }
+      } else {
+        // Desktop: Download as before
+        downloadCanvas(canvas, filename);
+      }
+    } catch (error) {
+      console.error('Error generating image:', error);
+      alert('Sorry, there was an error generating your image. Please try again.');
+    } finally {
+      setIsGeneratingImage(false);
+    }
+  };
+
+  const downloadCanvas = (canvas, filename) => {
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <div
-      style={{
-        background: "rgba(255,255,255,0.08)",
-        borderRadius: 20,
-        padding: 32,
-        textAlign: "center",
-        color: "#fff",
-        margin: "32px 0",
-        boxShadow: "0 2px 12px rgba(0,0,0,0.10)",
-        width: "100%",
-      }}
-    >
-      <div style={{ fontSize: 48, marginBottom: 12 }}>{desc?.icon || "🎉"}</div>
-      <div style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>
-        Your Love Language: {desc?.label || "Unknown"}
+    <>
+      {/* Hidden image card for capture */}
+      <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+        <div ref={imageCardRef}>
+          <ResultImageCard result={result} descriptions={descriptions} />
+        </div>
       </div>
-      <div style={{ fontSize: 18, marginBottom: 24 }}>{desc?.description}</div>
-      <div style={{ fontSize: 16, margin: "24px 0 8px 0", fontWeight: 600 }}>
-        Your Profile:
-      </div>
+
+      {/* Visible result card */}
       <div
+        ref={resultCardRef}
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: 12,
+          background: "rgba(255,255,255,0.08)",
+          borderRadius: 20,
+          padding: 16,
+          textAlign: "center",
+          color: "#fff",
+          width: "100%",
+          maxWidth: 600,
         }}
       >
-        {Object.keys(descriptions).map((key) => (
-          <div
-            key={key}
+        <div style={{ fontSize: 48, marginBottom: 12 }}>{desc?.icon || "🎉"}</div>
+        <div style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>
+          {result.secondary ? (
+            <>
+              Your Primary Style: {desc?.label || "Unknown"}
+              <div style={{ fontSize: 20, marginTop: 16, color: "#ffc371" }}>
+                Secondary Style: {descriptions[result.secondary]?.label}
+              </div>
+            </>
+          ) : (
+            `Your Style: ${desc?.label || "Unknown"}`
+          )}
+        </div>
+        <div style={{ fontSize: 18, marginBottom: 24 }}>{desc?.description}</div>
+        <div style={{ fontSize: 16, margin: "24px 0 8px 0", fontWeight: 600 }}>
+          Your Profile:
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: 12,
+          }}
+        >
+          {Object.keys(descriptions).map((key) => (
+            <div
+              key={key}
+              style={{
+                background:
+                  key === result.primary || key === result.secondary
+                    ? "#ffc371"
+                    : "rgba(255,255,255,0.06)",
+                color: key === result.primary || key === result.secondary ? "#18171c" : "#fff",
+                borderRadius: 12,
+                padding: "12px 18px",
+                minWidth: 120,
+                margin: 4,
+                fontWeight: 500,
+                fontSize: 16,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}
+            >
+              <span style={{ fontSize: 22 }}>{descriptions[key].icon}</span>
+              <span>{descriptions[key].label}</span>
+              <span style={{ fontWeight: 700, marginLeft: 6 }}>
+                {result.percentages?.[key] || result.tally?.[key] || 0}%
+              </span>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 32, marginLeft: 16, marginRight: 16 }}>
+          <button
+            className="free-feature-over-button-quiz"
+            style={{ width: 180 }}
+            onClick={onRestart}
+          >
+            Restart Quiz
+          </button>
+          <button
+            onClick={downloadResultImage}
+            className="free-feature-over-button-quiz"
+            disabled={isGeneratingImage}
             style={{
-              background:
-                key === result.primary ? "#ffc371" : "rgba(255,255,255,0.06)",
-              color: key === result.primary ? "#18171c" : "#fff",
-              borderRadius: 12,
-              padding: "12px 18px",
-              minWidth: 120,
-              margin: 4,
-              fontWeight: 500,
-              fontSize: 16,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
+              background: isGeneratingImage
+                ? '#666'
+                : 'linear-gradient(135deg, #ff5f6d, #ffc371)',
+              cursor: isGeneratingImage ? 'not-allowed' : 'pointer',
+              width: 180,
+              transition: 'all 0.3s ease',
+              opacity: isGeneratingImage ? 0.7 : 1,
             }}
           >
-            <span style={{ fontSize: 22 }}>{descriptions[key].icon}</span>
-            <span>{descriptions[key].label}</span>
-            <span style={{ fontWeight: 700, marginLeft: 6 }}>
-              {result.tally[key] || 0}
-            </span>
-          </div>
-        ))}
+            {isGeneratingImage
+              ? '⏳ Generating...'
+              : canShare
+                ? '📱 Share'
+                : '📸 Download'
+            }
+          </button>
+        </div>
       </div>
-      <button
-        className="free-feature-over-button"
-        style={{ marginTop: 32, width: 180 }}
-        onClick={onRestart}
-      >
-        Restart Quiz
-      </button>
-    </div>
+    </>
   );
 };
 
-const QuizContainer = () => {
-  const [restartKey, setRestartKey] = useState(0);
+const QuizContainer = ({ quizData }) => {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
   return (
     <div
       style={{
-        background: "rgba(30,30,40,0.98)",
-        borderRadius: 24,
-        boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
-        padding: 40,
+        marginTop: 80,
         minWidth: 340,
-        margin: "40px auto",
+        paddingLeft: 16,
+        paddingRight: 16,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        height: "calc(100vh - 80px)", // Full viewport height minus margins
+        position: "relative",
       }}
     >
-      <QuizProvider quizData={loveLanguageQuiz} key={restartKey}>
-        <QuizWithResult onRestart={() => setRestartKey((k) => k + 1)} />
+      <QuizProvider quizData={quizData} key={currentQuestionIndex}>
+        <QuizWithResult onRestart={() => setCurrentQuestionIndex((k) => k + 1)} />
       </QuizProvider>
     </div>
   );
@@ -542,26 +611,82 @@ const QuizWithResult = ({ onRestart }) => {
   const isLast = currentIndex === quizData.questions.length - 1;
   const [showResult, setShowResult] = useState(false);
 
+  // Better mobile device detection
+  const isMobileDevice = () => {
+    if (typeof navigator === 'undefined') return false;
+    
+    // Check for touch capability
+    const hasTouch = 'ontouchstart' in window || 
+                     navigator.maxTouchPoints > 0 || 
+                     navigator.msMaxTouchPoints > 0;
+    
+    // Check user agent for mobile indicators
+    const userAgent = navigator.userAgent.toLowerCase();
+    const mobileKeywords = ['mobile', 'android', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone'];
+    const hasMobileUA = mobileKeywords.some(keyword => userAgent.includes(keyword));
+    
+    // Check screen size (mobile-like dimensions)
+    const isSmallScreen = window.screen.width <= 768 || window.innerWidth <= 768;
+    
+    // Check for mobile-specific APIs
+    const hasOrientationAPI = 'orientation' in window || 'onorientationchange' in window;
+    
+    // Combine checks - need touch + (mobile UA OR small screen OR orientation API)
+    return hasTouch && (hasMobileUA || isSmallScreen || hasOrientationAPI);
+  };
+
+  // Only use Web Share API on actual mobile devices
+  const canShare = isMobileDevice() && 
+                   typeof navigator !== 'undefined' && 
+                   navigator.share && 
+                   navigator.canShare;
+
   if (showResult) {
-    const result = calculateLoveLanguageResult(quizData, answers);
+    const result = quizData.calculateResult(quizData, answers);
     return (
-      <ResultCard
-        result={result}
-        onRestart={onRestart}
-        descriptions={quizData.resultDescriptions}
-      />
+      <div style={{
+        height: "100%",
+          width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden"
+      }}>
+        <div style={{
+          flex: 1,
+          overflowY: "auto"
+        }}>
+          <ResultCard
+            result={result}
+            onRestart={onRestart}
+            descriptions={quizData.resultDescriptions}
+            quizData={quizData}
+            canShare={canShare}
+          />
+        </div>
+      </div>
     );
   }
 
   return (
-    <>
-      <ProgressBar />
-      <QuizSlide />
+    <div style={{
+      height: "100vh",
+      maxWidth: 400,
+      display: "flex",
+      flexDirection: "column",
+      overflow: "hidden"
+    }}>
+      <div style={{
+        flex: 1,
+        overflowY: "auto",
+      }}>
+        <ProgressBar />
+        <QuizSlide />
+      </div>
       <QuizNavigation
         onShowResult={() => setShowResult(true)}
         isLast={isLast}
       />
-    </>
+    </div>
   );
 };
 
@@ -584,22 +709,13 @@ const QuizNavigation = ({ onShowResult, isLast }) => {
       style={{
         display: "flex",
         justifyContent: "space-between",
-        marginTop: 32,
         gap: 24,
       }}
     >
       <button
-        className="free-feature-over-button"
-        style={{ width: 120, opacity: currentIndex === 0 ? 0.5 : 1 }}
-        onClick={goBack}
-        disabled={currentIndex === 0}
-      >
-        Back
-      </button>
-      <button
-        className="free-feature-over-button"
+        className="free-feature-over-button-quiz"
         style={{
-          width: 120,
+          width: "100%",
           opacity: (isLast ? 1 : 0.5) && canGoNext ? 1 : 0.5,
         }}
         onClick={() => (isLast ? onShowResult() : goNext())}
