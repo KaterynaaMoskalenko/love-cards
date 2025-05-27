@@ -149,7 +149,7 @@ function calculateLoveLanguageResult(quizData, answers) {
 export const loveLanguageQuiz = {
   id: "love-language",
   title: "What is your love language?",
-  description: "Discover how you best give and receive love.",
+  description: "Discover how you best give and receive love with our comprehensive Love Language Quiz. Learn whether you're motivated by Words of Affirmation, Acts of Service, Receiving Gifts, Quality Time, or Physical Touch. Take this free 5-minute quiz to understand your relationship communication style and strengthen your connection with your partner.",
   icon: "💖",
   loadingContent: {
     subtitle: "Discovering your love style",

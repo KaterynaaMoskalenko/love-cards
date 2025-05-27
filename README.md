@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Pre-build
+
+run npm build
+
+then access build with python server: python3 -m http.server 4005 --directory build
+
+then disable JS in DevTools and try accessing pages like quizzes
+
 ## Available Scripts
 
 In the project directory, you can run:

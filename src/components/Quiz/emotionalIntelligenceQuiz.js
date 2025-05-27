@@ -2,7 +2,7 @@ import React from "react";
 
 const emotionalIntelligenceQuiz = {
   title: "Emotional Intelligence in Relationships",
-  description: "Discover how well you understand and manage emotions in your relationship",
+  description: "Test your emotional intelligence (EQ) in relationships with our comprehensive emotional intelligence quiz. Discover your strengths in Self-Awareness, Self-Regulation, Empathy, and Relationship Management. Take this free emotional intelligence test to improve your relationship skills and emotional awareness with your partner.",
   loadingContent: {
     subtitle: "Analyzing your EQ patterns",
     cardTitle: "💝 Ready to Practice EQ Skills?",

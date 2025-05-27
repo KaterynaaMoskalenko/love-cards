@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import MenuButton from "./Menu/MenuButton";
 import Header from "./Header/Header";
 import "./App.css";
@@ -37,56 +38,58 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <PageViewTracker />
-      <UnlockPaidFeaturesPopupProvider>
-        <div className="App">
-          <Header />
-          <MenuButton
-            categoryFilters={categoryFilters}
-            setCategoryFilters={setCategoryFilters}
-          />
+    <HelmetProvider>
+      <Router>
+        <PageViewTracker />
+        <UnlockPaidFeaturesPopupProvider>
+          <div className="App">
+            <Header />
+            <MenuButton
+              categoryFilters={categoryFilters}
+              setCategoryFilters={setCategoryFilters}
+            />
 
-          <Routes>
-            <Route
-              path="/"
-              element={<OnboardingDeck categoryFilters={categoryFilters} />}
-            />
-            <Route path="/history" element={<QuestionsHistoryPage />} />
-            <Route path="/favorites" element={<FavoriteQuestionsPage />} />
-            <Route path="/quizzes" element={<QuizList />} />
-            <Route
-              path="/purchase-completed-successfully"
-              element={<PurchaseSuccessPage />}
-            />
-            <Route
-              path="/purchase-cancelled"
-              element={<PurchaseCancelledPage />}
-            />
-            <Route
-              path="/trial-started-successfully"
-              element={<StartTrialPage />}
-            />
-            <Route 
-              path="/quiz/love-language" 
-              element={<QuizContainer quizData={loveLanguageQuiz} />} 
-            />
-            <Route 
-              path="/quiz/attachment-style" 
-              element={<QuizContainer quizData={attachmentStyleQuiz} />} 
-            />
-            <Route
-              path="/quiz/conflict-resolution"
-              element={<QuizContainer quizData={conflictResolutionQuiz} />}
-            />
-            <Route
-              path="/quiz/emotional-intelligence"
-              element={<QuizContainer quizData={emotionalIntelligenceQuiz} />}
-            />
-          </Routes>
-        </div>
-      </UnlockPaidFeaturesPopupProvider>
-    </Router>
+            <Routes>
+              <Route
+                path="/"
+                element={<OnboardingDeck categoryFilters={categoryFilters} />}
+              />
+              <Route path="/history" element={<QuestionsHistoryPage />} />
+              <Route path="/favorites" element={<FavoriteQuestionsPage />} />
+              <Route path="/quizzes" element={<QuizList />} />
+              <Route
+                path="/purchase-completed-successfully"
+                element={<PurchaseSuccessPage />}
+              />
+              <Route
+                path="/purchase-cancelled"
+                element={<PurchaseCancelledPage />}
+              />
+              <Route
+                path="/trial-started-successfully"
+                element={<StartTrialPage />}
+              />
+              <Route 
+                path="/quiz/love-language" 
+                element={<QuizContainer quizData={loveLanguageQuiz} />} 
+              />
+              <Route 
+                path="/quiz/attachment-style" 
+                element={<QuizContainer quizData={attachmentStyleQuiz} />} 
+              />
+              <Route
+                path="/quiz/conflict-resolution"
+                element={<QuizContainer quizData={conflictResolutionQuiz} />}
+              />
+              <Route
+                path="/quiz/emotional-intelligence"
+                element={<QuizContainer quizData={emotionalIntelligenceQuiz} />}
+              />
+            </Routes>
+          </div>
+        </UnlockPaidFeaturesPopupProvider>
+      </Router>
+    </HelmetProvider>
   );
 }
 

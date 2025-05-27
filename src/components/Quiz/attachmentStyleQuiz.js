@@ -103,7 +103,7 @@ function calculateAttachmentStyleResult(quizData, answers) {
 export const attachmentStyleQuiz = {
   id: "attachment-style",
   title: "What is your attachment style?",
-  description: "Discover how you form and maintain relationships.",
+  description: "Discover your attachment style with our comprehensive relationship quiz. Learn whether you have a Secure, Anxious, Avoidant, or Fearful-Avoidant attachment pattern and how it affects your relationships. Take this free psychology-based quiz to understand your relationship patterns and improve your emotional connections.",
   icon: "💝",
   loadingContent: {
     subtitle: "Analyzing attachment patterns",

@@ -1,6 +1,6 @@
 const conflictResolutionQuiz = {
   title: "Relationship Conflict Resolution Style",
-  description: "Discover how you and your partner handle conflicts in your relationship",
+  description: "Discover your conflict resolution style with our relationship communication quiz. Learn whether you're a Validating, Volatile, Conflict-Avoidant, or Hostile conflict resolver based on Dr. John Gottman's research. Take this free couples quiz to improve your relationship communication and learn healthy conflict resolution strategies.",
   loadingContent: {
     subtitle: "Analyzing conflict patterns",
     cardTitle: "💝 Ready to Resolve Better?",

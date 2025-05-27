@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../FreeFeatureOverScreen/FreeFeatureOverScreen.css";
 import html2canvas from 'html2canvas';
 import ResultImageCard from './ResultImageCard';
+import QuizSEO from './QuizSEO';
 
 const ProgressBar = () => {
   const { quizData, currentIndex } = useQuiz();
@@ -619,26 +620,30 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
 
 const QuizContainer = ({ quizData }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [showResult, setShowResult] = useState(false);
 
   return (
-    <div
-      style={{
-        marginTop: 80,
-        marginBottom: 30,
-        minWidth: 340,
-        paddingLeft: 16,
-        paddingRight: 16,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        height: "calc(100vh - 80px)", // Full viewport height minus margins
-        position: "relative",
-      }}
-    >
-      <QuizProvider quizData={quizData} key={currentQuestionIndex}>
-        <QuizWithResult onRestart={() => setCurrentQuestionIndex((k) => k + 1)} />
-      </QuizProvider>
-    </div>
+    <>
+      <QuizSEO quizData={quizData} />
+      <div
+        style={{
+          marginTop: 80,
+          marginBottom: 30,
+          minWidth: 340,
+          paddingLeft: 16,
+          paddingRight: 16,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          height: "calc(100vh - 80px)", // Full viewport height minus margins
+          position: "relative",
+        }}
+      >
+        <QuizProvider quizData={quizData} key={currentQuestionIndex}>
+          <QuizWithResult onRestart={() => setCurrentQuestionIndex((k) => k + 1)} />
+        </QuizProvider>
+      </div>
+    </>
   );
 };
 
