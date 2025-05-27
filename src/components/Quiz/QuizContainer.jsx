@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
+import { useNavigate } from "react-router-dom";
 import "../FreeFeatureOverScreen/FreeFeatureOverScreen.css";
 import html2canvas from 'html2canvas';
 import ResultImageCard from './ResultImageCard';
@@ -387,6 +388,7 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
   const resultCardRef = useRef(null);
   const imageCardRef = useRef(null);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const navigate = useNavigate();
 
   const downloadResultImage = async () => {
     if (!imageCardRef.current) return;
@@ -506,6 +508,69 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
             `Your Style: ${desc?.label || "Unknown"}`
           )}
         </div>
+
+        {/* Buttons positioned right after style titles */}
+        <div style={{ display: "flex", gap: 16, justifyContent: "center", margin: "24px 16px", flexWrap: "wrap" }}>
+          <button
+            className="free-feature-over-button-quiz"
+            style={{ width: 180 }}
+            onClick={() => navigate('/quizzes')}
+          >
+            📚 More Quizzes
+          </button>
+          <button
+            onClick={downloadResultImage}
+            className="free-feature-over-button-quiz"
+            disabled={isGeneratingImage}
+            style={{
+              background: isGeneratingImage
+                ? '#666'
+                : 'linear-gradient(135deg, #ff5f6d, #ffc371)',
+              cursor: isGeneratingImage ? 'not-allowed' : 'pointer',
+              width: 180,
+              transition: 'all 0.3s ease',
+              opacity: isGeneratingImage ? 0.7 : 1,
+            }}
+          >
+            {isGeneratingImage
+              ? '⏳ Generating...'
+              : canShare
+                ? '📱 Share'
+                : '📸 Download'
+            }
+          </button>
+        </div>
+
+        {/* Small CTA for Card Game */}
+        <div style={{
+          textAlign: "center",
+          margin: "16px 0 24px 0",
+          padding: "0 16px"
+        }}>
+          <div style={{
+            fontSize: 14,
+            color: "rgba(255,255,255,0.6)",
+            lineHeight: 1.4
+          }}>
+            💡 Want to practice these skills with your partner?{" "}
+            <button
+              onClick={() => window.open('https://app.twoofuscards.com?utm_source=quiz&utm_medium=results&utm_campaign=eq_quiz', '_blank', 'noopener,noreferrer')}
+              style={{
+                background: "none",
+                border: "none",
+                color: "#ffc371",
+                textDecoration: "underline",
+                cursor: "pointer",
+                fontSize: 14,
+                fontWeight: 500,
+                padding: 0
+              }}
+            >
+              Try our card game ↗
+            </button>
+          </div>
+        </div>
+
         <div style={{ fontSize: 18, marginBottom: 24 }}>{desc?.description}</div>
         <div style={{ fontSize: 16, margin: "24px 0 8px 0", fontWeight: 600 }}>
           Your Profile:
@@ -547,36 +612,6 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
             </div>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 32, marginLeft: 16, marginRight: 16 }}>
-          <button
-            className="free-feature-over-button-quiz"
-            style={{ width: 180 }}
-            onClick={onRestart}
-          >
-            Restart Quiz
-          </button>
-          <button
-            onClick={downloadResultImage}
-            className="free-feature-over-button-quiz"
-            disabled={isGeneratingImage}
-            style={{
-              background: isGeneratingImage
-                ? '#666'
-                : 'linear-gradient(135deg, #ff5f6d, #ffc371)',
-              cursor: isGeneratingImage ? 'not-allowed' : 'pointer',
-              width: 180,
-              transition: 'all 0.3s ease',
-              opacity: isGeneratingImage ? 0.7 : 1,
-            }}
-          >
-            {isGeneratingImage
-              ? '⏳ Generating...'
-              : canShare
-                ? '📱 Share'
-                : '📸 Download'
-            }
-          </button>
-        </div>
       </div>
     </>
   );
@@ -589,6 +624,7 @@ const QuizContainer = ({ quizData }) => {
     <div
       style={{
         marginTop: 80,
+        marginBottom: 30,
         minWidth: 340,
         paddingLeft: 16,
         paddingRight: 16,
@@ -610,36 +646,168 @@ const QuizWithResult = ({ onRestart }) => {
   const { quizData, currentIndex, answers } = useQuiz();
   const isLast = currentIndex === quizData.questions.length - 1;
   const [showResult, setShowResult] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
 
   // Better mobile device detection
   const isMobileDevice = () => {
-    if (typeof navigator === 'undefined') return false;
-    
-    // Check for touch capability
-    const hasTouch = 'ontouchstart' in window || 
-                     navigator.maxTouchPoints > 0 || 
-                     navigator.msMaxTouchPoints > 0;
-    
-    // Check user agent for mobile indicators
-    const userAgent = navigator.userAgent.toLowerCase();
-    const mobileKeywords = ['mobile', 'android', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone'];
-    const hasMobileUA = mobileKeywords.some(keyword => userAgent.includes(keyword));
-    
-    // Check screen size (mobile-like dimensions)
-    const isSmallScreen = window.screen.width <= 768 || window.innerWidth <= 768;
-    
-    // Check for mobile-specific APIs
-    const hasOrientationAPI = 'orientation' in window || 'onorientationchange' in window;
-    
-    // Combine checks - need touch + (mobile UA OR small screen OR orientation API)
-    return hasTouch && (hasMobileUA || isSmallScreen || hasOrientationAPI);
+    return window.innerWidth <= 768;
   };
 
   // Only use Web Share API on actual mobile devices
-  const canShare = isMobileDevice() && 
-                   typeof navigator !== 'undefined' && 
-                   navigator.share && 
+  const canShare = isMobileDevice() &&
+                   typeof navigator !== 'undefined' &&
+                   navigator.share &&
                    navigator.canShare;
+
+  const handleShowResult = () => {
+    setIsCalculating(true);
+    // Add a delay to show the loading state
+    setTimeout(() => {
+      setIsCalculating(false);
+      setShowResult(true);
+    }, 8000); // 8 seconds delay for calculating effect and reading the info card
+  };
+
+  // Show loading state while calculating
+  if (isCalculating) {
+    // Dynamic content based on quiz type
+    const getQuizSpecificContent = () => {
+      // Use quiz-specific loadingContent if available, otherwise fallback to defaults
+      if (quizData.loadingContent) {
+        return quizData.loadingContent;
+      }
+      
+      // Fallback for quizzes that don't have loadingContent yet
+      return {
+        subtitle: "Analyzing your responses",
+        cardTitle: "💝 Ready for Deeper Conversations?",
+        cardText: "Your results are almost ready. Practice these insights with meaningful discussions."
+      };
+    };
+
+    const content = getQuizSpecificContent();
+
+    return (
+      <div style={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: "0 16px"
+      }}>
+        <div style={{
+          background: "rgba(255,255,255,0.08)",
+          borderRadius: 20,
+          padding: 40,
+          maxWidth: 400,
+          width: "100%"
+        }}>
+          {/* Animated loading spinner */}
+          <div style={{
+            width: 60,
+            height: 60,
+            border: "4px solid rgba(255,255,255,0.1)",
+            borderTop: "4px solid #ffc371",
+            borderRadius: "50%",
+            animation: "spin 1s linear infinite",
+            margin: "0 auto 24px auto"
+          }} />
+          
+          <div style={{
+            fontSize: 24,
+            fontWeight: 600,
+            color: "#fff",
+            marginBottom: 12
+          }}>
+            Calculating Results...
+          </div>
+          
+          <div style={{
+            fontSize: 16,
+            color: "rgba(255,255,255,0.7)",
+            lineHeight: 1.5,
+            marginBottom: 32
+          }}>
+            {content.subtitle}
+          </div>
+
+          {/* Info Card for Card Game Promotion */}
+          <div style={{
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: 12,
+            padding: 20,
+            marginTop: 24
+          }}>
+            <div style={{
+              fontSize: 18,
+              fontWeight: 600,
+              color: "#ffc371",
+              marginBottom: 12,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 8
+            }}>
+              {content.cardTitle}
+            </div>
+            
+            <div style={{
+              fontSize: 15,
+              color: "rgba(255,255,255,0.9)",
+              lineHeight: 1.5,
+              marginBottom: 16
+            }}>
+              {content.cardText}
+            </div>
+            
+            <button
+              onClick={() => window.open('https://app.twoofuscards.com?utm_source=quiz&utm_medium=loading&utm_campaign=eq_quiz', '_blank', 'noopener,noreferrer')}
+              style={{
+                background: "linear-gradient(135deg, #ff5f6d, #ffc371)",
+                border: "none",
+                borderRadius: 8,
+                color: "#18171c",
+                padding: "12px 20px",
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "transform 0.2s ease",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                width: "100%"
+              }}
+              onMouseEnter={(e) => e.target.style.transform = "scale(1.02)"}
+              onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
+            >
+              🎮 Start Deeper Conversations ↗
+            </button>
+            
+            <div style={{
+              fontSize: 12,
+              color: "rgba(255,255,255,0.5)",
+              marginTop: 8
+            }}>
+              (Opens in new tab)
+            </div>
+          </div>
+        </div>
+        
+        {/* Add CSS animation for spinner */}
+        <style jsx>{`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   if (showResult) {
     const result = quizData.calculateResult(quizData, answers);
@@ -683,7 +851,7 @@ const QuizWithResult = ({ onRestart }) => {
         <QuizSlide />
       </div>
       <QuizNavigation
-        onShowResult={() => setShowResult(true)}
+        onShowResult={handleShowResult}
         isLast={isLast}
       />
     </div>

@@ -1,6 +1,11 @@
 const conflictResolutionQuiz = {
   title: "Relationship Conflict Resolution Style",
   description: "Discover how you and your partner handle conflicts in your relationship",
+  loadingContent: {
+    subtitle: "Analyzing conflict patterns",
+    cardTitle: "💝 Ready to Resolve Better?",
+    cardText: "Discover your conflict style, then practice healthy communication with conversation cards designed for couples."
+  },
   questions: [
     {
       id: "intro",

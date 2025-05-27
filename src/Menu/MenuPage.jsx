@@ -4,6 +4,7 @@ import {
   ArchiveBoxIcon,
   HeartIcon,
   InformationCircleIcon, TagIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/20/solid";
 import { getPurchaseStatus } from "./stripe/StripeService";
 import MenuItem from "./menuPage/MenuItem";
@@ -95,6 +96,14 @@ function MenuPage({
                 )
             }
 
+            <MenuItem
+              icon={<ClipboardDocumentListIcon width={"20px"} />}
+              labelKey={"quizzes"}
+              onClick={() => {
+                closePopup();
+                navigate("/quizzes");
+              }}
+            />
             <MenuItem
               icon={<InformationCircleIcon width={"20px"} />}
               labelKey={"about"}

@@ -16,6 +16,8 @@ import QuizContainer from "./components/Quiz/QuizContainer";
 import { loveLanguageQuiz } from "./components/Quiz/quizData";
 import { attachmentStyleQuiz } from "./components/Quiz/attachmentStyleQuiz";
 import conflictResolutionQuiz from './components/Quiz/conflictResolutionQuiz';
+import emotionalIntelligenceQuiz from './components/Quiz/emotionalIntelligenceQuiz';
+import QuizList from "./components/Quiz/QuizList";
 
 const INITIAL_CATEGORY_FILTERS = {
   questionsKnowMeBetter: true,
@@ -52,6 +54,7 @@ function App() {
             />
             <Route path="/history" element={<QuestionsHistoryPage />} />
             <Route path="/favorites" element={<FavoriteQuestionsPage />} />
+            <Route path="/quizzes" element={<QuizList />} />
             <Route
               path="/purchase-completed-successfully"
               element={<PurchaseSuccessPage />}
@@ -75,6 +78,10 @@ function App() {
             <Route
               path="/quiz/conflict-resolution"
               element={<QuizContainer quizData={conflictResolutionQuiz} />}
+            />
+            <Route
+              path="/quiz/emotional-intelligence"
+              element={<QuizContainer quizData={emotionalIntelligenceQuiz} />}
             />
           </Routes>
         </div>

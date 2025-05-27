@@ -9,11 +9,11 @@ const IntroInfoComponent = () => (
     <div style={{ fontSize: 18, color: "#fff", marginBottom: 16, lineHeight: 1.4 }}>
       Everyone gives and receives love differently. Understanding your love language can transform your relationships and help you connect more deeply with the people you care about.
     </div>
-    <div style={{ 
-      background: "rgba(255,195,113,0.2)", 
-      borderRadius: 12, 
-      padding: 16, 
-      border: "2px solid rgba(255,195,113,0.3)" 
+    <div style={{
+      background: "rgba(255,195,113,0.2)",
+      borderRadius: 12,
+      padding: 16,
+      border: "2px solid rgba(255,195,113,0.3)"
     }}>
       <div style={{ fontSize: 16, color: "#ffc371", fontWeight: 600, marginBottom: 8 }}>
         What you'll discover:
@@ -126,7 +126,7 @@ function calculateLoveLanguageResult(quizData, answers) {
   // Calculate percentages
   const total = Object.values(tally).reduce((sum, count) => sum + count, 0);
   const percentages = {};
-  
+
   if (total > 0) {
     Object.entries(tally).forEach(([key, count]) => {
       percentages[key] = Math.round((count / total) * 100);
@@ -151,6 +151,11 @@ export const loveLanguageQuiz = {
   title: "What is your love language?",
   description: "Discover how you best give and receive love.",
   icon: "💖",
+  loadingContent: {
+    subtitle: "Discovering your love style",
+    cardTitle: "💝 Ready for Deeper Connection?",
+    cardText: "Learn your love language, then practice it with conversation cards designed for couples."
+  },
   questions: [
     {
       id: "info-intro",
@@ -392,222 +397,222 @@ export const loveLanguageQuiz = {
       type: "info",
       content: <AdvancedInfoComponent />,
     },
-    {
-      id: "q9",
-      type: "single",
-      layout: "grid",
-      text: "What makes you feel most secure in a relationship?",
-      answers: [
-        {
-          id: "a1",
-          text: "Regular verbal reassurance and compliments",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "Consistent helpful actions and reliability",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "Thoughtful gestures and remembering special dates",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "Regular date nights and focused conversations",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "Regular physical affection and closeness",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "q10",
-      type: "multi",
-      layout: "list",
-      text: "Which of these would be meaningful birthday gestures? (Select all that apply)",
-      answers: [
-        { id: "a1", text: "A heartfelt birthday message or card", value: "words" },
-        { id: "a2", text: "Taking care of all my responsibilities for the day", value: "acts" },
-        { id: "a3", text: "A carefully chosen gift that shows they know me", value: "gifts" },
-        { id: "a4", text: "Planning a special day together, just the two of us", value: "quality" },
-        { id: "a5", text: "Extra hugs, kisses, and physical affection", value: "touch" },
-      ],
-    },
-    {
-      id: "q11",
-      type: "single",
-      layout: "list",
-      text: "When you're stressed, what do you most want from your partner?",
-      answers: [
-        {
-          id: "a1",
-          text: "To hear 'You're doing great' and words of encouragement",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "To have them take care of tasks so I can focus",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "A small surprise or treat to brighten my day",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "To sit together and talk through what's bothering me",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "A back rub or comforting physical presence",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "q12",
-      type: "single",
-      layout: "grid",
-      text: "What's your ideal way to spend an anniversary?",
-      answers: [
-        {
-          id: "a1",
-          text: "Sharing heartfelt words about our relationship",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "Having a day where we take care of each other",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "Exchanging meaningful gifts",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "Spending the whole day together without distractions",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "Being physically close and affectionate all day",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "info-research-3",
-      type: "info",
-      icon: "💡",
-      text: "Research shows that couples who understand each other's love languages report 2x higher relationship satisfaction. It's never too late to learn your partner's language!",
-    },
-    {
-      id: "q13",
-      type: "multi",
-      layout: "list",
-      text: "What makes you feel most appreciated at work or with friends? (Select all that apply)",
-      answers: [
-        { id: "a1", text: "Public recognition or verbal praise", value: "words" },
-        { id: "a2", text: "Others offering to help with my workload", value: "acts" },
-        { id: "a3", text: "Small tokens of appreciation or thank you gifts", value: "gifts" },
-        { id: "a4", text: "Being invited to lunch or spending time together", value: "quality" },
-        { id: "a5", text: "High-fives, hugs, or celebratory physical gestures", value: "touch" },
-      ],
-    },
-    {
-      id: "q14",
-      type: "single",
-      layout: "list",
-      text: "If you could only receive one of these for the rest of your life, which would you choose?",
-      answers: [
-        {
-          id: "a1",
-          text: "Daily words of love and appreciation",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "Having someone always willing to help you",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "Regular thoughtful surprises and gifts",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "Unlimited quality time with loved ones",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "Constant physical affection and closeness",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "q15",
-      type: "single",
-      layout: "grid",
-      text: "Looking back at your past relationships, what did you miss most when it was lacking?",
-      answers: [
-        {
-          id: "a1",
-          text: "Verbal affection and compliments",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "Practical support and help",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "Thoughtful gestures and gifts",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "Meaningful time together",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "Physical intimacy and affection",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "q16",
-      type: "multi",
-      layout: "list",
-      text: "Final question: Which of these statements resonate with you? (Select all that apply)",
-      answers: [
-        { id: "a1", text: "I never get tired of hearing 'I love you'", value: "words" },
-        { id: "a2", text: "Actions speak louder than words", value: "acts" },
-        { id: "a3", text: "It's the thought that counts", value: "gifts" },
-        { id: "a4", text: "Nothing beats quality time together", value: "quality" },
-        { id: "a5", text: "Physical touch is essential for connection", value: "touch" },
-      ],
-    },
-    {
-      id: "info-final",
-      type: "info",
-      icon: "🎉",
-      text: "You're almost done! Remember, we all have a primary love language, but everyone appreciates all five to some degree. Understanding your profile can help you communicate your needs and show love more effectively.",
-    },
+    // {
+    //   id: "q9",
+    //   type: "single",
+    //   layout: "grid",
+    //   text: "What makes you feel most secure in a relationship?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "Regular verbal reassurance and compliments",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "Consistent helpful actions and reliability",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "Thoughtful gestures and remembering special dates",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "Regular date nights and focused conversations",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "Regular physical affection and closeness",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "q10",
+    //   type: "multi",
+    //   layout: "list",
+    //   text: "Which of these would be meaningful birthday gestures? (Select all that apply)",
+    //   answers: [
+    //     { id: "a1", text: "A heartfelt birthday message or card", value: "words" },
+    //     { id: "a2", text: "Taking care of all my responsibilities for the day", value: "acts" },
+    //     { id: "a3", text: "A carefully chosen gift that shows they know me", value: "gifts" },
+    //     { id: "a4", text: "Planning a special day together, just the two of us", value: "quality" },
+    //     { id: "a5", text: "Extra hugs, kisses, and physical affection", value: "touch" },
+    //   ],
+    // },
+    // {
+    //   id: "q11",
+    //   type: "single",
+    //   layout: "list",
+    //   text: "When you're stressed, what do you most want from your partner?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "To hear 'You're doing great' and words of encouragement",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "To have them take care of tasks so I can focus",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "A small surprise or treat to brighten my day",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "To sit together and talk through what's bothering me",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "A back rub or comforting physical presence",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "q12",
+    //   type: "single",
+    //   layout: "grid",
+    //   text: "What's your ideal way to spend an anniversary?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "Sharing heartfelt words about our relationship",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "Having a day where we take care of each other",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "Exchanging meaningful gifts",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "Spending the whole day together without distractions",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "Being physically close and affectionate all day",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "info-research-3",
+    //   type: "info",
+    //   icon: "💡",
+    //   text: "Research shows that couples who understand each other's love languages report 2x higher relationship satisfaction. It's never too late to learn your partner's language!",
+    // },
+    // {
+    //   id: "q13",
+    //   type: "multi",
+    //   layout: "list",
+    //   text: "What makes you feel most appreciated at work or with friends? (Select all that apply)",
+    //   answers: [
+    //     { id: "a1", text: "Public recognition or verbal praise", value: "words" },
+    //     { id: "a2", text: "Others offering to help with my workload", value: "acts" },
+    //     { id: "a3", text: "Small tokens of appreciation or thank you gifts", value: "gifts" },
+    //     { id: "a4", text: "Being invited to lunch or spending time together", value: "quality" },
+    //     { id: "a5", text: "High-fives, hugs, or celebratory physical gestures", value: "touch" },
+    //   ],
+    // },
+    // {
+    //   id: "q14",
+    //   type: "single",
+    //   layout: "list",
+    //   text: "If you could only receive one of these for the rest of your life, which would you choose?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "Daily words of love and appreciation",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "Having someone always willing to help you",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "Regular thoughtful surprises and gifts",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "Unlimited quality time with loved ones",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "Constant physical affection and closeness",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "q15",
+    //   type: "single",
+    //   layout: "grid",
+    //   text: "Looking back at your past relationships, what did you miss most when it was lacking?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "Verbal affection and compliments",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "Practical support and help",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "Thoughtful gestures and gifts",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "Meaningful time together",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "Physical intimacy and affection",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "q16",
+    //   type: "multi",
+    //   layout: "list",
+    //   text: "Final question: Which of these statements resonate with you? (Select all that apply)",
+    //   answers: [
+    //     { id: "a1", text: "I never get tired of hearing 'I love you'", value: "words" },
+    //     { id: "a2", text: "Actions speak louder than words", value: "acts" },
+    //     { id: "a3", text: "It's the thought that counts", value: "gifts" },
+    //     { id: "a4", text: "Nothing beats quality time together", value: "quality" },
+    //     { id: "a5", text: "Physical touch is essential for connection", value: "touch" },
+    //   ],
+    // },
+    // {
+    //   id: "info-final",
+    //   type: "info",
+    //   icon: "🎉",
+    //   text: "You're almost done! Remember, we all have a primary love language, but everyone appreciates all five to some degree. Understanding your profile can help you communicate your needs and show love more effectively.",
+    // },
   ],
   resultDescriptions: loveLanguageDescriptions,
   calculateResult: calculateLoveLanguageResult,

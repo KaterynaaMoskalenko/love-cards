@@ -13,7 +13,7 @@ const attachmentStyleDescriptions = {
   },
   avoidant: {
     label: "Dismissive-Avoidant",
-    icon: "🛡️",
+    icon: "🏔️",
     description: "You value independence and self-reliance. You may avoid emotional intimacy and prefer to handle things on your own, sometimes at the expense of close relationships.",
   },
   fearful: {
@@ -105,6 +105,11 @@ export const attachmentStyleQuiz = {
   title: "What is your attachment style?",
   description: "Discover how you form and maintain relationships.",
   icon: "💝",
+  loadingContent: {
+    subtitle: "Analyzing attachment patterns",
+    cardTitle: "💝 Ready to Build Security?",
+    cardText: "Understand your attachment style, then strengthen your bond through guided conversations."
+  },
   questions: [
     {
       id: "info-custom",

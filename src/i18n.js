@@ -11,7 +11,8 @@ const resources = {
         categoryChange: "Category Change",
         about: "About",
         promoCardText: "Play 150 cards, see history, save favorite questions & more!",
-        startNow: "Start Now!"
+        startNow: "Start Now!",
+        quizzes: "Quizzes",
       },
 
       categories: {
