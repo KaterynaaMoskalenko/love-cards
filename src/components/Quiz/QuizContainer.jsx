@@ -416,38 +416,37 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
       if (canShare) {
         // Mobile: Use Web Share API
         try {
-          canvas.toBlob(async (blob) => {
-            if (!blob) {
-              throw new Error('Failed to generate image');
-            }
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+          if (!blob) {
+            throw new Error('Failed to generate image');
+          }
 
-            const file = new File([blob], filename, { type: 'image/png' });
+          const file = new File([blob], filename, { type: 'image/png' });
 
-            // Check if the file can be shared
-            if (navigator.canShare({ files: [file] })) {
-              try {
-                await navigator.share({
-                  title: `My ${quizData.title} Result`,
-                  text: `I got ${result.primary}! Take the ${quizData.title} quiz on TwoOfUsCards.com`,
-                  files: [file]
-                });
-                // Share completed successfully
-              } catch (shareError) {
-                // Handle share cancellation vs actual errors
-                if (shareError.name === 'AbortError') {
-                  // User cancelled the share - this is normal behavior, do nothing
-                  return;
-                } else {
-                  // Actual error occurred, fallback to download
-                  console.warn('Share failed, falling back to download:', shareError);
-                  downloadCanvas(canvas, filename);
-                }
+          // Check if the file can be shared
+          if (navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({
+                title: `My ${quizData.title} Result`,
+                text: `I got ${result.primary}! Take the ${quizData.title} quiz on TwoOfUsCards.com`,
+                files: [file]
+              });
+              // Share completed successfully
+            } catch (shareError) {
+              // Handle share cancellation vs actual errors
+              if (shareError.name === 'AbortError') {
+                // User cancelled the share - this is normal behavior, do nothing
+                return;
+              } else {
+                // Actual error occurred, fallback to download
+                console.warn('Share failed, falling back to download:', shareError);
+                downloadCanvas(canvas, filename);
               }
-            } else {
-              // Fallback to download if file sharing not supported
-              downloadCanvas(canvas, filename);
             }
-          }, 'image/png');
+          } else {
+            // Fallback to download if file sharing not supported
+            downloadCanvas(canvas, filename);
+          }
         } catch (shareError) {
           console.error('Error preparing share:', shareError);
           // Fallback to download
@@ -620,7 +619,6 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
 
 const QuizContainer = ({ quizData }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showResult, setShowResult] = useState(false);
 
   return (
     <>
@@ -681,7 +679,7 @@ const QuizWithResult = ({ onRestart }) => {
       if (quizData.loadingContent) {
         return quizData.loadingContent;
       }
-      
+
       // Fallback for quizzes that don't have loadingContent yet
       return {
         subtitle: "Analyzing your responses",
@@ -720,7 +718,7 @@ const QuizWithResult = ({ onRestart }) => {
             animation: "spin 1s linear infinite",
             margin: "0 auto 24px auto"
           }} />
-          
+
           <div style={{
             fontSize: 24,
             fontWeight: 600,
@@ -729,7 +727,7 @@ const QuizWithResult = ({ onRestart }) => {
           }}>
             Calculating Results...
           </div>
-          
+
           <div style={{
             fontSize: 16,
             color: "rgba(255,255,255,0.7)",
@@ -759,7 +757,7 @@ const QuizWithResult = ({ onRestart }) => {
             }}>
               {content.cardTitle}
             </div>
-            
+
             <div style={{
               fontSize: 15,
               color: "rgba(255,255,255,0.9)",
@@ -768,7 +766,7 @@ const QuizWithResult = ({ onRestart }) => {
             }}>
               {content.cardText}
             </div>
-            
+
             <button
               onClick={() => window.open('https://app.twoofuscards.com?utm_source=quiz&utm_medium=loading&utm_campaign=eq_quiz', '_blank', 'noopener,noreferrer')}
               style={{
@@ -792,7 +790,7 @@ const QuizWithResult = ({ onRestart }) => {
             >
               🎮 Start Deeper Conversations ↗
             </button>
-            
+
             <div style={{
               fontSize: 12,
               color: "rgba(255,255,255,0.5)",
@@ -802,7 +800,7 @@ const QuizWithResult = ({ onRestart }) => {
             </div>
           </div>
         </div>
-        
+
         {/* Add CSS animation for spinner */}
         <style jsx>{`
           @keyframes spin {
