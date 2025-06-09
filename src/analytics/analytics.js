@@ -22,7 +22,7 @@ export const logPurchaseCompleted = () => {
 
 export const logPurchaseCancelled = () => {
   ReactGA.event("purchase_cancelled");
-}
+};
 
 export const logTrialStarted = () => {
   ReactGA.event("purchase_trial_started");
@@ -34,7 +34,7 @@ export const logCardSwiped = (cardQuestion) => {
 
 export const logCardLiked = (cardQuestion) => {
   ReactGA.event("card_liked", {cardQuestion});
-}
+};
 
 export const logOnboardingCompleted = () => {
   ReactGA.event("onboarding_completed");
@@ -42,5 +42,25 @@ export const logOnboardingCompleted = () => {
 
 export const logFreeDeckCompleted = () => {
   ReactGA.event("free_plan_deck_completed");
+};
+
+export const trackQuizStart = (quizName, quizId) => {
+  ReactGA.event('quiz_start', {
+    quiz_name: quizName,
+    quiz_id: quizId,
+    timestamp: Date.now()
+  });
+};
+
+export const trackQuestionAnswer = (params) => {
+  ReactGA.event('question_answer', params);
+};
+
+export const trackQuizComplete = (params) => {
+  ReactGA.event('quiz_complete', params);
+};
+
+export const trackResultShare = (params) => {
+  ReactGA.event('result_share', params);
 };
 

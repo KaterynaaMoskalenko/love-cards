@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
 import { useNavigate } from "react-router-dom";
 import "../FreeFeatureOverScreen/FreeFeatureOverScreen.css";
 import html2canvas from 'html2canvas';
 import ResultImageCard from './ResultImageCard';
 import QuizSEO from './QuizSEO';
+import * as Analytics from '../../analytics/analytics';
 
 const ProgressBar = () => {
   const { quizData, currentIndex } = useQuiz();
@@ -391,6 +392,16 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const navigate = useNavigate();
 
+  const handleShare = () => {
+    const primaryResult = result.primary.toLowerCase();
+    const quizType = quizData.title.toLowerCase();
+    Analytics.trackResultShare({
+      quizName: quizType,
+      result: primaryResult
+    });
+    downloadResultImage();
+  };
+
   const downloadResultImage = async () => {
     if (!imageCardRef.current) return;
 
@@ -519,7 +530,7 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
             📚 More Quizzes
           </button>
           <button
-            onClick={downloadResultImage}
+            onClick={handleShare}
             className="free-feature-over-button-quiz"
             disabled={isGeneratingImage}
             style={{
@@ -650,6 +661,42 @@ const QuizWithResult = ({ onRestart }) => {
   const isLast = currentIndex === quizData.questions.length - 1;
   const [showResult, setShowResult] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
+  const startTime = useRef(Date.now());
+  const questionStartTime = useRef(Date.now());
+
+  useEffect(() => {
+    Analytics.trackQuizStart(quizData.title, quizData.id);
+  }, [quizData]);
+
+  const onGoNextSideEffect = () => {
+    const timeSpent = Date.now() - questionStartTime.current;
+    const q = quizData.questions[currentIndex];
+    
+    Analytics.trackQuestionAnswer({
+      quizName: quizData.title,
+      questionNumber: currentIndex + 1,
+      answerValue: answers[q.id],
+      timeSpent: timeSpent
+    });
+
+    questionStartTime.current = Date.now();
+  };
+
+  const handleShowResult = () => {
+    setIsCalculating(true);
+    setTimeout(() => {
+      setIsCalculating(false);
+      setShowResult(true);
+      
+      const result = quizData.calculateResult(quizData, answers);
+      Analytics.trackQuizComplete({
+        quizName: quizData.title,
+        quizId: quizData.id,
+        totalTime: Date.now() - startTime.current,
+        resultType: result.primary
+      });
+    }, 8000);
+  };
 
   // Better mobile device detection
   const isMobileDevice = () => {
@@ -661,15 +708,6 @@ const QuizWithResult = ({ onRestart }) => {
                    typeof navigator !== 'undefined' &&
                    navigator.share &&
                    navigator.canShare;
-
-  const handleShowResult = () => {
-    setIsCalculating(true);
-    // Add a delay to show the loading state
-    setTimeout(() => {
-      setIsCalculating(false);
-      setShowResult(true);
-    }, 8000); // 8 seconds delay for calculating effect and reading the info card
-  };
 
   // Show loading state while calculating
   if (isCalculating) {
@@ -854,6 +892,7 @@ const QuizWithResult = ({ onRestart }) => {
         <QuizSlide />
       </div>
       <QuizNavigation
+        onGoNextSideEffect={onGoNextSideEffect}
         onShowResult={handleShowResult}
         isLast={isLast}
       />
@@ -861,13 +900,19 @@ const QuizWithResult = ({ onRestart }) => {
   );
 };
 
-const QuizNavigation = ({ onShowResult, isLast }) => {
+const QuizNavigation = ({ onShowResult, isLast, onGoNextSideEffect}) => {
   const { currentIndex, quizData, goNext, goBack, answers } = useQuiz();
   const q = quizData.questions[currentIndex];
   const isSingleList = q.type === "single" && q.layout === "list";
   const isSingleGrid = q.type === "single" && q.layout === "grid";
   const isMultiList = q.type === "multi" && q.layout === "list";
   const isMultiGrid = q.type === "multi" && q.layout === "grid";
+
+  const onGoNext = () => {
+    onGoNextSideEffect();
+    goNext();
+  };
+
   const canGoNext =
     q.type === "info" ||
     (isSingleList || isSingleGrid
@@ -889,7 +934,7 @@ const QuizNavigation = ({ onShowResult, isLast }) => {
           width: "100%",
           opacity: (isLast ? 1 : 0.5) && canGoNext ? 1 : 0.5,
         }}
-        onClick={() => (isLast ? onShowResult() : goNext())}
+        onClick={() => (isLast ? onShowResult() : onGoNext())}
         disabled={!canGoNext}
       >
         {isLast ? "See Result" : "Next"}
