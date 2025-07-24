@@ -195,170 +195,170 @@ export const loveLanguageQuiz = {
         },
       ],
     },
-    {
-      id: "q2",
-      type: "single",
-      layout: "grid",
-      text: "Which gesture would make you feel most appreciated?",
-      answers: [
-        {
-          id: "a1",
-          text: "A heartfelt compliment",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "Help with a project",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "A thoughtful gift",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "Undivided attention",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "A gentle touch",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "q3",
-      type: "single",
-      layout: "list",
-      text: "In a relationship, what makes you feel most connected to your partner?",
-      answers: [
-        {
-          id: "a1",
-          text: "When they tell me how much I mean to them",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "When they do things to make my life easier",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "When they surprise me with little gifts or tokens of love",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "When we spend focused, uninterrupted time together",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "When they hold my hand, hug me, or show physical affection",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "q4",
-      type: "multi",
-      layout: "list",
-      text: "Which of these actions would make you feel loved? (Select all that apply)",
-      answers: [
-        { id: "a1", text: "Receiving a love note or sweet text message", value: "words" },
-        { id: "a2", text: "Having someone cook dinner for you", value: "acts" },
-        { id: "a3", text: "Getting flowers or a small surprise", value: "gifts" },
-        { id: "a4", text: "Having a deep, meaningful conversation", value: "quality" },
-        { id: "a5", text: "Cuddling while watching a movie", value: "touch" },
-      ],
-    },
-    {
-      id: "info-research-1",
-      type: "info",
-      icon: "📚",
-      text: "Did you know? Dr. Gary Chapman identified the 5 Love Languages through decades of marriage counseling. He found that most relationship conflicts stem from speaking different love languages!",
-    },
-    {
-      id: "q5",
-      type: "single",
-      layout: "list",
-      text: "What hurts your feelings most in a relationship?",
-      answers: [
-        {
-          id: "a1",
-          text: "When my partner criticizes me or doesn't acknowledge my efforts",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "When my partner doesn't help me when I clearly need it",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "When my partner forgets important occasions or doesn't think to surprise me",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "When my partner is always distracted or too busy for me",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "When my partner avoids physical closeness or seems distant",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "q6",
-      type: "single",
-      layout: "grid",
-      text: "How do you naturally show love to others?",
-      answers: [
-        {
-          id: "a1",
-          text: "I tell them how much they mean to me",
-          value: "words",
-        },
-        {
-          id: "a2",
-          text: "I help them with tasks or do things for them",
-          value: "acts",
-        },
-        {
-          id: "a3",
-          text: "I give them thoughtful gifts or surprises",
-          value: "gifts",
-        },
-        {
-          id: "a4",
-          text: "I spend quality time and give them my attention",
-          value: "quality",
-        },
-        {
-          id: "a5",
-          text: "I show affection through hugs and touch",
-          value: "touch",
-        },
-      ],
-    },
-    {
-      id: "q7",
-      type: "multi",
-      layout: "list",
-      text: "When you want to show someone you care, what do you do? (Select all that apply)",
-      answers: [
-        { id: "a1", text: "Send them an encouraging message", value: "words" },
-        { id: "a2", text: "Offer to help them with something", value: "acts" },
-        { id: "a3", text: "Bring them a small gift or treat", value: "gifts" },
-        { id: "a4", text: "Plan special time together", value: "quality" },
-        { id: "a5", text: "Give them a hug or pat on the back", value: "touch" },
-      ],
-    },
+    // {
+    //   id: "q2",
+    //   type: "single",
+    //   layout: "grid",
+    //   text: "Which gesture would make you feel most appreciated?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "A heartfelt compliment",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "Help with a project",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "A thoughtful gift",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "Undivided attention",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "A gentle touch",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "q3",
+    //   type: "single",
+    //   layout: "list",
+    //   text: "In a relationship, what makes you feel most connected to your partner?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "When they tell me how much I mean to them",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "When they do things to make my life easier",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "When they surprise me with little gifts or tokens of love",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "When we spend focused, uninterrupted time together",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "When they hold my hand, hug me, or show physical affection",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "q4",
+    //   type: "multi",
+    //   layout: "list",
+    //   text: "Which of these actions would make you feel loved? (Select all that apply)",
+    //   answers: [
+    //     { id: "a1", text: "Receiving a love note or sweet text message", value: "words" },
+    //     { id: "a2", text: "Having someone cook dinner for you", value: "acts" },
+    //     { id: "a3", text: "Getting flowers or a small surprise", value: "gifts" },
+    //     { id: "a4", text: "Having a deep, meaningful conversation", value: "quality" },
+    //     { id: "a5", text: "Cuddling while watching a movie", value: "touch" },
+    //   ],
+    // },
+    // {
+    //   id: "info-research-1",
+    //   type: "info",
+    //   icon: "📚",
+    //   text: "Did you know? Dr. Gary Chapman identified the 5 Love Languages through decades of marriage counseling. He found that most relationship conflicts stem from speaking different love languages!",
+    // },
+    // {
+    //   id: "q5",
+    //   type: "single",
+    //   layout: "list",
+    //   text: "What hurts your feelings most in a relationship?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "When my partner criticizes me or doesn't acknowledge my efforts",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "When my partner doesn't help me when I clearly need it",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "When my partner forgets important occasions or doesn't think to surprise me",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "When my partner is always distracted or too busy for me",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "When my partner avoids physical closeness or seems distant",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "q6",
+    //   type: "single",
+    //   layout: "grid",
+    //   text: "How do you naturally show love to others?",
+    //   answers: [
+    //     {
+    //       id: "a1",
+    //       text: "I tell them how much they mean to me",
+    //       value: "words",
+    //     },
+    //     {
+    //       id: "a2",
+    //       text: "I help them with tasks or do things for them",
+    //       value: "acts",
+    //     },
+    //     {
+    //       id: "a3",
+    //       text: "I give them thoughtful gifts or surprises",
+    //       value: "gifts",
+    //     },
+    //     {
+    //       id: "a4",
+    //       text: "I spend quality time and give them my attention",
+    //       value: "quality",
+    //     },
+    //     {
+    //       id: "a5",
+    //       text: "I show affection through hugs and touch",
+    //       value: "touch",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "q7",
+    //   type: "multi",
+    //   layout: "list",
+    //   text: "When you want to show someone you care, what do you do? (Select all that apply)",
+    //   answers: [
+    //     { id: "a1", text: "Send them an encouraging message", value: "words" },
+    //     { id: "a2", text: "Offer to help them with something", value: "acts" },
+    //     { id: "a3", text: "Bring them a small gift or treat", value: "gifts" },
+    //     { id: "a4", text: "Plan special time together", value: "quality" },
+    //     { id: "a5", text: "Give them a hug or pat on the back", value: "touch" },
+    //   ],
+    // },
     {
       id: "q8",
       type: "single",

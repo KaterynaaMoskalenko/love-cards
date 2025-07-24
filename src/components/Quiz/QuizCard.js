@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import quizCompletion from '../../utils/quizCompletion';
+import { trackQuizCardClick } from '../../analytics/analytics';
 import './QuizCard.css';
 
 const QuizCard = ({ quiz }) => {
@@ -8,6 +9,7 @@ const QuizCard = ({ quiz }) => {
   const isCompleted = quizCompletion.isCompleted(quiz.id);
 
   const handleStartQuiz = () => {
+    trackQuizCardClick(quiz.id, quiz.title);
     navigate(`/quiz/${quiz.id}`);
   };
 

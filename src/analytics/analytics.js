@@ -64,3 +64,18 @@ export const trackResultShare = (params) => {
   ReactGA.event('result_share', params);
 };
 
+export const trackMoreQuizzesClick = (quizName) => {
+  ReactGA.event('more_quizzes_click', {
+    source_quiz: quizName,
+    timestamp: Date.now()
+  });
+};
+
+export const trackQuizCardClick = (quizId, quizName) => {
+  ReactGA.event('quiz_card_click', {
+    quiz_id: quizId,
+    quiz_name: quizName,
+    timestamp: Date.now()
+  });
+};
+

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, useLocation} from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import MenuButton from "./Menu/MenuButton";
 import Header from "./Header/Header";
@@ -28,6 +28,23 @@ const INITIAL_CATEGORY_FILTERS = {
   questionsReflectGrow: true,
 };
 
+// Conditional components to hide header/menu on quiz pages
+const ConditionalHeader = () => {
+  const location = useLocation();
+  const isQuizPage = location.pathname.startsWith('/quiz/');
+  
+  if (isQuizPage) return null;
+  return <Header />;
+};
+
+const ConditionalMenuButton = ({ categoryFilters, setCategoryFilters }) => {
+  const location = useLocation();
+  const isQuizPage = location.pathname.startsWith('/quiz/');
+  
+  if (isQuizPage) return null;
+  return <MenuButton categoryFilters={categoryFilters} setCategoryFilters={setCategoryFilters} />;
+};
+
 function App() {
   const [categoryFilters, setCategoryFilters] = useState(
     INITIAL_CATEGORY_FILTERS
@@ -41,10 +58,10 @@ function App() {
     <HelmetProvider>
       <Router>
         <PageViewTracker />
-        <UnlockPaidFeaturesPopupProvider>
+                <UnlockPaidFeaturesPopupProvider>
           <div className="App">
-            <Header />
-            <MenuButton
+            <ConditionalHeader />
+            <ConditionalMenuButton 
               categoryFilters={categoryFilters}
               setCategoryFilters={setCategoryFilters}
             />

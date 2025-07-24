@@ -14,7 +14,7 @@ const ProgressBar = () => {
   return (
     <div
       style={{
-        margin: "32px 0 24px 0",
+        margin: "16px 0 16px 0", // Reduced from "32px 0 24px 0"
         width: "100%",
         display: "flex",
         flexDirection: "column",
@@ -55,14 +55,14 @@ const ProgressBar = () => {
 };
 
 const SingleSelectList = ({ question, answer, onSelect }) => (
-  <div style={{ width: "100%", marginTop: 24 }}>
+  <div style={{ width: "100%", marginTop: 8 }}>
     {question.answers.map((ans) => (
       <button
         key={ans.id}
         className={`free-feature-over-button-quiz`}
         style={{
           width: "100%",
-          marginBottom: 16,
+          marginBottom: 12, // Reduced from 16
           background:
             answer === ans.id
               ? "linear-gradient(135deg, #ff5f6d, #ffc371)"
@@ -87,10 +87,10 @@ const SingleSelectGrid = ({ question, answer, onSelect }) => (
   <div
     style={{
       width: "100%",
-      marginTop: 24,
+      marginTop: 8, // Reduced from 24
       display: "flex",
       flexWrap: "wrap",
-      padding: 8,
+      padding: 4, // Reduced from 8
       boxSizing: "border-box",
     }}
   >
@@ -99,9 +99,9 @@ const SingleSelectGrid = ({ question, answer, onSelect }) => (
         key={ans.id}
         className={`free-feature-over-button-quiz`}
         style={{
-          width: "calc(50% - 16px)",
-          minHeight: 120,
-          margin: 8,
+          width: "calc(50% - 12px)", // Adjusted for smaller margin
+          minHeight: 100, // Reduced from 120
+          margin: 6, // Reduced from 8
           background:
             answer === ans.id
               ? "linear-gradient(135deg, #ff5f6d, #ffc371)"
@@ -141,7 +141,7 @@ const SingleSelectGrid = ({ question, answer, onSelect }) => (
 );
 
 const MultiSelectList = ({ question, answer = [], onSelect }) => (
-  <div style={{ width: "100%", marginTop: 24 }}>
+  <div style={{ width: "100%", marginTop: 8 }}>
     {question.answers.map((ans) => {
       const selected = answer.includes(ans.id);
       return (
@@ -150,7 +150,7 @@ const MultiSelectList = ({ question, answer = [], onSelect }) => (
           className={`free-feature-over-button-quiz`}
           style={{
             width: "100%",
-            marginBottom: 16,
+            marginBottom: 12, // Reduced from 16
             background: selected
               ? "linear-gradient(135deg, #ff5f6d, #ffc371)"
               : "rgba(255,255,255,0.08)",
@@ -203,10 +203,10 @@ const MultiSelectGrid = ({ question, answer = [], onSelect }) => (
   <div
     style={{
       width: "100%",
-      marginTop: 24,
+      marginTop: 8, // Reduced from 24
       display: "flex",
       flexWrap: "wrap",
-      padding: 8,
+      padding: 4, // Reduced from 8
       boxSizing: "border-box",
     }}
   >
@@ -217,9 +217,9 @@ const MultiSelectGrid = ({ question, answer = [], onSelect }) => (
           key={ans.id}
           className={`free-feature-over-button-quiz`}
           style={{
-            width: "calc(50% - 16px)",
-            minHeight: 120,
-            margin: 8,
+            width: "calc(50% - 12px)", // Adjusted for smaller margin
+            minHeight: 100, // Reduced from 120
+            margin: 6, // Reduced from 8
             background: selected
               ? "linear-gradient(135deg, #ff5f6d, #ffc371)"
               : "rgba(255,255,255,0.08)",
@@ -273,8 +273,8 @@ const QuizSlide = () => {
           justifyContent: "center",
           background: "rgba(255,255,255,0.06)",
           borderRadius: 16,
-          padding: 32,
-          margin: "24px 0",
+          padding: 24, // Reduced from 32
+          margin: "16px 0", // Reduced from "24px 0"
           width: "100%",
         }}
       >
@@ -298,7 +298,7 @@ const QuizSlide = () => {
   if (q.type === "single" && q.layout === "list") {
     return (
       <>
-        <div style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
+        <div style={{ fontSize: 18, color: "#fff", textAlign: "center", marginBottom: 16 }}>
           {q.text}
         </div>
         <SingleSelectList
@@ -314,7 +314,7 @@ const QuizSlide = () => {
   if (q.type === "single" && q.layout === "grid") {
     return (
       <>
-        <div style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
+        <div style={{ fontSize: 18, color: "#fff", textAlign: "center", marginBottom: 16 }}>
           {q.text}
         </div>
         <SingleSelectGrid
@@ -330,7 +330,7 @@ const QuizSlide = () => {
   if (q.type === "multi" && q.layout === "list") {
     return (
       <>
-        <div style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
+        <div style={{ fontSize: 18, color: "#fff", textAlign: "center", marginBottom: 16 }}>
           {q.text}
         </div>
         <MultiSelectList
@@ -352,7 +352,7 @@ const QuizSlide = () => {
   if (q.type === "multi" && q.layout === "grid") {
     return (
       <>
-        <div style={{ fontSize: 20, color: "#fff", textAlign: "center" }}>
+        <div style={{ fontSize: 18, color: "#fff", textAlign: "center", marginBottom: 16 }}>
           {q.text}
         </div>
         <MultiSelectGrid
@@ -525,7 +525,10 @@ const ResultCard = ({ result, onRestart, descriptions, quizData, canShare }) => 
           <button
             className="free-feature-over-button-quiz"
             style={{ width: 180 }}
-            onClick={() => navigate('/quizzes')}
+            onClick={() => {
+              Analytics.trackMoreQuizzesClick(quizData.title);
+              navigate('/quizzes');
+            }}
           >
             📚 More Quizzes
           </button>
@@ -636,15 +639,15 @@ const QuizContainer = ({ quizData }) => {
       <QuizSEO quizData={quizData} />
       <div
         style={{
-          marginTop: 80,
-          marginBottom: 30,
+          marginTop: 32, // Increased to ensure progress bar is visible
+          marginBottom: 16, // Reduced from 30
           minWidth: 340,
           paddingLeft: 16,
           paddingRight: 16,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          height: "calc(100vh - 80px)", // Full viewport height minus margins
+          height: "calc(100vh - 80px - env(safe-area-inset-bottom))", // Adjusted for new margins
           position: "relative",
         }}
       >
@@ -855,14 +858,16 @@ const QuizWithResult = ({ onRestart }) => {
     return (
       <div style={{
         height: "100%",
-          width: "100%",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
-        overflow: "hidden"
+        minHeight: 0,
       }}>
         <div style={{
           flex: 1,
-          overflowY: "auto"
+          overflowY: "auto",
+          padding: "0 0 32px 0", // Increased bottom padding to prevent cutoff
+          minHeight: 0,
         }}>
           <ResultCard
             result={result}
@@ -878,24 +883,32 @@ const QuizWithResult = ({ onRestart }) => {
 
   return (
     <div style={{
-      height: "100vh",
+      height: "100%",
       maxWidth: 400,
       display: "flex",
       flexDirection: "column",
-      overflow: "hidden"
+      minHeight: 0, // Important for flex children
     }}>
       <div style={{
         flex: 1,
         overflowY: "auto",
+        paddingBottom: 16, // Add some padding to prevent content cutoff
+        minHeight: 0, // Important for flex children
       }}>
         <ProgressBar />
         <QuizSlide />
       </div>
-      <QuizNavigation
-        onGoNextSideEffect={onGoNextSideEffect}
-        onShowResult={handleShowResult}
-        isLast={isLast}
-      />
+      <div style={{
+        flexShrink: 0, // Prevent navigation from shrinking
+        paddingTop: 16,
+        paddingBottom: `calc(32px + env(safe-area-inset-bottom))`, // Bottom padding + safe area for mobile devices
+      }}>
+        <QuizNavigation
+          onGoNextSideEffect={onGoNextSideEffect}
+          onShowResult={handleShowResult}
+          isLast={isLast}
+        />
+      </div>
     </div>
   );
 };
